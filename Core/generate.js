@@ -1,65 +1,71 @@
-const fs = require('fs');
-const { root, count } = require("./init");
-const rootData = require(`../Nodes/${root}`);
+const fs = require("fs")
+const { root, count } = require("./init")
+const rootData = require(`../Nodes/${root}`)
 
 function generate() {}
 
+/**
+ * For a single instance, update it's props. Mutates instance.
+ * TODO: Look into not mutating the instance.
+ *
+ * rootNode: The original configure
+ * instance: the node instance we are currently working on
+ * unsetProps: An array of the keys for each unset prop
+ */
+function updateProps(rootNode, instance, oldUnsetProps) {
+  const newUnsetProps = [...oldUnsetProps];
+
+  oldUnsetProps.forEach((prop) => {
+      const { dependencies = [] } = rootNode[prop]
+
+      const dependenciesMet = dependencies.reduce((acc, depend) => {
+        return acc && !newUnsetProps.includes(depend);
+      }, true)
+
+      if (dependenciesMet) {
+        const dependencyValues = dependencies.map((dep) => {
+          return instance[dep];
+        });
+        instance[prop] = rootNode[prop].method(dependencyValues);
+        // mutates
+        newUnsetProps.splice(newUnsetProps.indexOf(prop), 1);
+      }
+  });
+
+  if (newUnsetProps.length > 0 && newUnsetProps.length < oldUnsetProps.length) {
+    return updateProps(rootNode, instance, newUnsetProps);
+  }
+}
+
 function start() {
-  // Move all of this into a generate Node, then recurse on the nodes
-  const rootNode = Object.values(rootData)[0]
+  // TODO: Break this into single purpose functions
+  // The original config
+  const rootNode = Object.values(rootData)[0];
+  // All of the nodes possible props
   const rootNodeProps = Object.keys(rootNode)
 
+  // Holds all the instances and their generated data
   const data = new Array(count)
-  const dataIsGenerated = new Array(count)
 
   for (i = 0; i < count; i++) {
     data[i] = {}
   }
 
-  const initState = rootNodeProps.reduce((acc, prop) => {
-    acc[prop] = false
-    return acc
-  }, {})
-
-  for (i = 0; i < count; i++) {
-    dataIsGenerated[i] = { ...initState }
-  }
-
   data.forEach((instance, index) => {
-    const instanceIsGenerated = dataIsGenerated[index]
-
-    Object.entries(instanceIsGenerated).forEach(([key, isSet]) => {
-      if (!isSet) {
-        const { dependencies = [] } = rootNode[key]
-
-        const dependenciesMet = dependencies.reduce((acc, depend) => {
-          return acc && instanceIsGenerated[depend]
-        }, true)
-
-        if (dependenciesMet) {
-          const dependencyValues = dependencies.map((dep) => {
-            return instance[dep]
-          })
-          instance[key] = rootNode[key].method(dependencyValues)
-          instanceIsGenerated[key] = true
-        }
-      }
-    })
+    updateProps(rootNode, instance, rootNodeProps);
   })
 
   generateFile(data)
 }
 
 function generateFile(data) {
-  const writeData = JSON.stringify(data, null, 2);
+  const writeData = JSON.stringify(data, null, 2)
 
-// TODO: is using where the console is, fix this
-    fs.writeFile(`./Generated/${root}.json`, writeData, function (err) {
-      if (err) throw err;
-      console.log('File is created successfully.');
-    });
-
-
+  // TODO: is using where the console is, fix this
+  fs.writeFile(`./Generated/${root}.json`, writeData, function (err) {
+    if (err) throw err
+    console.log("File is created successfully.")
+  })
 }
 
 module.exports = { start }

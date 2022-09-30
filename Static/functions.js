@@ -10,4 +10,19 @@ function getRandomValue(values) {
   return values[getRandomInt(0, values.length - 1)]
 }
 
-module.exports = { getRandomInt, getRandomValue }
+function getWeightedRandomValue(values) {
+  return getRandomValue(
+    values.reduce((acc, val) => {
+      const value = val.value ?? val
+      const weight = val.weight ?? 1
+
+      for (i = 0; i < weight; i++) {
+        acc.push(value)
+      }
+
+      return acc
+    }, [])
+  )
+}
+
+module.exports = { getRandomInt, getRandomValue, getWeightedRandomValue }
