@@ -13,34 +13,34 @@ function generate() {}
  * unsetProps: An array of the keys for each unset prop
  */
 function updateProps(rootNode, instance, oldUnsetProps) {
-  const newUnsetProps = [...oldUnsetProps];
+  const newUnsetProps = [...oldUnsetProps]
 
   oldUnsetProps.forEach((prop) => {
-      const { dependencies = [] } = rootNode[prop]
+    const { dependencies = [] } = rootNode[prop]
 
-      const dependenciesMet = dependencies.reduce((acc, depend) => {
-        return acc && !newUnsetProps.includes(depend);
-      }, true)
+    const dependenciesMet = dependencies.reduce((acc, depend) => {
+      return acc && !newUnsetProps.includes(depend)
+    }, true)
 
-      if (dependenciesMet) {
-        const dependencyValues = dependencies.map((dep) => {
-          return instance[dep];
-        });
-        instance[prop] = rootNode[prop].method(dependencyValues);
-        // mutates
-        newUnsetProps.splice(newUnsetProps.indexOf(prop), 1);
-      }
-  });
+    if (dependenciesMet) {
+      const dependencyValues = dependencies.map((dep) => {
+        return instance[dep]
+      })
+      instance[prop] = rootNode[prop].method(dependencyValues)
+      // mutates
+      newUnsetProps.splice(newUnsetProps.indexOf(prop), 1)
+    }
+  })
 
   if (newUnsetProps.length > 0 && newUnsetProps.length < oldUnsetProps.length) {
-    return updateProps(rootNode, instance, newUnsetProps);
+    return updateProps(rootNode, instance, newUnsetProps)
   }
 }
 
 function start() {
   // TODO: Break this into single purpose functions
   // The original config
-  const rootNode = Object.values(rootData)[0];
+  const rootNode = Object.values(rootData)[0]
   // All of the nodes possible props
   const rootNodeProps = Object.keys(rootNode)
 
@@ -52,7 +52,7 @@ function start() {
   }
 
   data.forEach((instance, index) => {
-    updateProps(rootNode, instance, rootNodeProps);
+    updateProps(rootNode, instance, rootNodeProps)
   })
 
   generateFile(data)

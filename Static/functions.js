@@ -10,7 +10,7 @@ function getRandomValue(values) {
   return values[getRandomInt(0, values.length - 1)]
 }
 
-function getWeightedRandomValue(values) {
+function getWeightedRandomValue(values = []) {
   return getRandomValue(
     values.reduce((acc, val) => {
       const value = val.value ?? val
