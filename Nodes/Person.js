@@ -144,7 +144,7 @@ function getTraits(dep) {
     { value: 3, weight: 2 },
   ])
 
-  let localTraits = age < 18 ? [...traits] : [...adultTraits]
+  let localTraits = age < 18 ? [...traits] : [...traits, ...adultTraits]
   const generatedTraits = []
 
   for (i = 0; i < traitCount; i++) {

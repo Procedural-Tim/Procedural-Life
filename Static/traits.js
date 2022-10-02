@@ -16,6 +16,8 @@ const traits = [
   ["Envious", "Empathic"],
   ["Prideful", "Humility"],
   // General
+  ["Likes cats", "Hates cats"],
+  ["Likes dogs", "Hates dogs"],
   ["Likes nature", "Hates nature"],
   ["Likes reading", "Hates reading"],
   ["Likes magic", "Hates magic"],
