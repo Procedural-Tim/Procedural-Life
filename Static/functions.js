@@ -6,8 +6,19 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (maxLoc - minLoc + 1) + minLoc)
 }
 
+// Returns a value at random from the array.
 function getRandomValue(values) {
-  return values[getRandomInt(0, values.length - 1)]
+  return getRandomValueWithArray(values).value
+}
+
+function getRandomValueWithArray(values) {
+  const newValues = [...values]
+  const value = newValues.splice(getRandomInt(0, values.length - 1), 1)[0]
+
+  return {
+    value,
+    newValues,
+  }
 }
 
 function getWeightedRandomValue(values = []) {
@@ -25,4 +36,9 @@ function getWeightedRandomValue(values = []) {
   )
 }
 
-module.exports = { getRandomInt, getRandomValue, getWeightedRandomValue }
+module.exports = {
+  getRandomInt,
+  getRandomValue,
+  getRandomValueWithArray,
+  getWeightedRandomValue,
+}

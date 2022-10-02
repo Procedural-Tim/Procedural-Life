@@ -1,10 +1,13 @@
 const {
   getRandomInt,
   getRandomValue,
+  getRandomValueWithArray,
   getWeightedRandomValue,
 } = require("../Static/functions")
 const { maleNames, femaleNames, lastNames } = require("../Static/names")
 const { professions } = require("../Static/professions")
+const { races } = require("../Static/races")
+const { traits, adultTraits } = require("../Static/traits")
 
 const Male = "M"
 const Female = "F"
@@ -24,7 +27,7 @@ function getFirstName(dependencies) {
 }
 
 function roleStat() {
-  return getRandomInt(1, 6) + getRandomInt(1, 6) + getRandomInt(1, 6);
+  return getRandomInt(1, 6) + getRandomInt(1, 6) + getRandomInt(1, 6)
 }
 
 function getAge() {
@@ -67,11 +70,15 @@ function getLastName() {
 }
 
 function getProfession(deps) {
-  const [age, str, dex, con, cha, wis, int] = deps;
-  const prof = getWeightedRandomValue(professions.map(prof => ({
-    title: prof.title,
-    weight: prof.getQualificationLevel(...deps),
-  })).filter((prof) => prof.weight > 0)) || { title: "Unemployed" };
+  const [age, str, dex, con, cha, wis, int] = deps
+  const prof = getWeightedRandomValue(
+    professions
+      .map((prof) => ({
+        title: prof.title,
+        weight: prof.getQualificationLevel(...deps),
+      }))
+      .filter((prof) => prof.weight > 0)
+  ) || { title: "Unemployed" }
 
   if (age < 13) {
     return "Child"
@@ -88,74 +95,69 @@ function getProfession(deps) {
   return prof.title
 }
 
-const Races = {
-  Human: {
-    label: "Human",
-    weight: 8,
-  },
-  Elf: {
-    label: "Elf",
-    weight: 2,
-  },
-  Dwarf: {
-    label: "Dwarf",
-    weight: 2,
-  },
-  Halfling: {
-    label: "Halfling",
-    weight: 2,
-  },
-  Gnome: {
-    label: "Gnome",
-    weight: 2,
-  },
-  "Half-Ork": {
-    label: "Half-Ork",
-    weight: 2,
-  },
-  Kobold: {
-    label: "Kobold",
-    weight: 1,
-  },
-}
-
 function getRace() {
-  return getWeightedRandomValue(Object.values(Races).map((props) => {
-    return {
-      value: props.label,
-      weight: props.weight,
-    }
-  }));
+  return getWeightedRandomValue(
+    Object.values(races).map((props) => {
+      return {
+        value: props.label,
+        weight: props.weight,
+      }
+    })
+  )
 }
 
 function adjStr(dep) {
-  const [stat, age, race] = dep;
-  return stat + (race === Races["Half-Ork"].label ? 2 : 0);
+  const [stat, age, race] = dep
+  return stat + (race === races["Half-Ork"].label ? 2 : 0)
 }
 
 function adjDex(dep) {
-  const [stat, age, race] = dep;
-  return stat + (race === Races.Elf.label ? 2 : 0);
+  const [stat, age, race] = dep
+  return stat + (race === races.Elf.label ? 2 : 0)
 }
 
 function adjCon(dep) {
-  const [stat, age, race] = dep;
-  return stat + (race === Races.Dwarf.label ? 2 : 0);
+  const [stat, age, race] = dep
+  return stat + (race === races.Dwarf.label ? 2 : 0)
 }
 
 function adjCha(dep) {
-  const [stat, age, race] = dep;
-  return stat + (race === Races.Halfling.label ? 2 : 0);
+  const [stat, age, race] = dep
+  return stat + (race === races.Halfling.label ? 2 : 0)
 }
 
 function adjWis(dep) {
-  const [stat, age, race] = dep;
-  return stat + (race === Races.Kobold.label ? 2 : 0);
+  const [stat, age, race] = dep
+  return stat + (race === races.Kobold.label ? 2 : 0)
 }
 
 function adjInt(dep) {
-  const [stat, age, race] = dep;
-  return stat + (race === Races.Gnome.label ? 2 : 0);
+  const [stat, age, race] = dep
+  return stat + (race === races.Gnome.label ? 2 : 0)
+}
+
+function getTraits(dep) {
+  const [age] = dep
+  const traitCount = getWeightedRandomValue([
+    { value: 1, weight: 5 },
+    { value: 2, weight: 3 },
+    { value: 3, weight: 2 },
+  ])
+
+  let localTraits = age < 18 ? [...traits] : [...adultTraits]
+  const generatedTraits = []
+
+  for (i = 0; i < traitCount; i++) {
+    const { value: newTrait, newValues: newTraits } = getRandomValueWithArray(
+      localTraits,
+      true
+    )
+
+    localTraits = newTraits
+    generatedTraits.push(getRandomValue(newTrait))
+  }
+
+  return generatedTraits
 }
 
 // Our first type, it is meant to represent an npc
@@ -177,7 +179,15 @@ const person = {
   },
   profession: {
     method: getProfession,
-    dependencies: ["age", "adjustedStr", "adjustedDex", "adjustedCon", "adjustedCha", "adjustedWis", "adjustedInt"],
+    dependencies: [
+      "age",
+      "adjustedStr",
+      "adjustedDex",
+      "adjustedCon",
+      "adjustedCha",
+      "adjustedWis",
+      "adjustedInt",
+    ],
   },
   str: {
     method: roleStat,
@@ -202,7 +212,7 @@ const person = {
   },
   adjustedStr: {
     method: adjStr,
-    dependencies: ["str","age", "race"],
+    dependencies: ["str", "age", "race"],
   },
   adjustedDex: {
     method: adjDex,
@@ -214,15 +224,19 @@ const person = {
   },
   adjustedCha: {
     method: adjCha,
-    dependencies: ["cha","age", "race"],
+    dependencies: ["cha", "age", "race"],
   },
   adjustedWis: {
     method: adjWis,
-    dependencies: ["wis","age", "race"],
+    dependencies: ["wis", "age", "race"],
   },
   adjustedInt: {
     method: adjInt,
-    dependencies: ["int","age", "race"],
+    dependencies: ["int", "age", "race"],
+  },
+  traits: {
+    method: getTraits,
+    dependencies: ["age"],
   },
 }
 

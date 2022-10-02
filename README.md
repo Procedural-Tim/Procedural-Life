@@ -10,6 +10,7 @@ As a hobby project certain things should be noted.
 - Configurations are very simplified, ie I have simplified sex to only M/F. This is not meant to be commentary but is instead a reflection of my limited time.
 
 # To run
+
 1. Install node
 2. Download the code from github
 3. Make any changes you want to
@@ -17,16 +18,22 @@ As a hobby project certain things should be noted.
 
 # Roadmap (Very rough)
 
-1. Traits
-2. Config packages, ie D&D package (Don't forget to emphasize this is in no way endorsed, authorized, or have any special permissions from wizards)
-3. Crude story module
-4. Expose static variables so things like gender ratio can be more easily adjusted.
-5. Multiple node types
-6. Dependencies between nodes
+1. Config packages, ie Fantasy package
+1. Spellcheck literals
+1. Crude story module
+1. Multiple node types
+1. Dependencies between nodes
+1. Electron
+1. Templates
+1. Consider using a database
+1. Expose static variables so things like gender ratio can be more easily adjusted.
 
 Technical List
+
 1. Flesh out formatter
-2. Add linter
+1. Add linter
+1. Consider yarn
+1. Consider supporting Deno
 
 # Components
 
@@ -72,7 +79,7 @@ Where it all gets put
 Turns all that data into story elements
 Long term goal
 
-## Templates
+## Templates (Planned)
 
 Turn the generated file into html files for more human readable interaction
 

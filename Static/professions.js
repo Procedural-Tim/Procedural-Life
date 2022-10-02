@@ -106,7 +106,7 @@ const professions = [
   {
     title: "Stable Master",
     getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
-      return age < 18 ? -4 : 0 + getStatScore(cha) + getStatScore(wis);
+      return age < 18 ? -4 : 0 + getStatScore(cha) + getStatScore(wis)
     },
   },
   {
