@@ -1,6 +1,6 @@
 {
   "name": "procedural-life",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A hobby project that aims to create an interconnected world via procedural generation and a set of configuration files. From D and D to RPGs the goal is to make your world feel lived in without having to build every npc, knife, town, etc your self.",
   "main": "index.js",
   "scripts": {
