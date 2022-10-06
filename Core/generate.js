@@ -1,70 +1,80 @@
 const fs = require("fs")
-const { root, count } = require("./init")
-const rootData = require(`../Nodes/${root}`)
+const coreManifest = require("./manifest")
+const configPath = `../Configs/${coreManifest.config}`
 
-function generate() {}
+const configManifest = require(`${configPath}/manifest`)
+const { types } = configManifest
+// const rootData = require(`../Nodes/${root}`)
 
-/**
- * For a single instance, update it's props. Mutates instance.
- * TODO: Look into not mutating the instance.
- *
- * rootNode: The original configure
- * instance: the node instance we are currently working on
- * unsetProps: An array of the keys for each unset prop
- */
-function updateProps(rootNode, instance, oldUnsetProps) {
+// Takes in the type definition from the config manifest and spits out a full set of instances
+function generateType(typeConfig) {
+  const { type, instanceCount } = typeConfig
+
+  // Only the type should be exported, so we can safely grab the 0 entry
+  const specification = Object.values(require(`${configPath}/Types/${type}`))[0]
+  const props = Object.keys(specification)
+  const instances = new Array(instanceCount);
+  // Both fill and map were producing the exact same result for updateProps each
+  // iteration.
+  for (i=0; i<instanceCount; i++) {
+    instances[i] = updateProps(specification, {}, props);
+  }
+
+  generateFile(
+    instances,
+    type
+  )
+}
+
+// Recursive function that mutates instance untill it reaches the end then
+// returns the instance
+function updateProps(specification, instance, oldUnsetProps) {
   const newUnsetProps = [...oldUnsetProps]
 
   oldUnsetProps.forEach((prop) => {
-    const { dependencies = [] } = rootNode[prop]
+    const { dependencies = [] } = specification[prop]
 
+    // If our updated list of unset props contains the prop then we fail
+    // dependenciesMet
     const dependenciesMet = dependencies.reduce((acc, depend) => {
       return acc && !newUnsetProps.includes(depend)
     }, true)
 
     if (dependenciesMet) {
+      // Grab the instances value for that dependency
       const dependencyValues = dependencies.map((dep) => {
         return instance[dep]
       })
-      instance[prop] = rootNode[prop].method(dependencyValues)
-      // mutates
+      // Mutates
+      instance[prop] = specification[prop].method(dependencyValues)
+      // Mutates
       newUnsetProps.splice(newUnsetProps.indexOf(prop), 1)
     }
   })
 
+  // Infinite loop prevention
   if (newUnsetProps.length > 0 && newUnsetProps.length < oldUnsetProps.length) {
-    return updateProps(rootNode, instance, newUnsetProps)
+    return updateProps(specification, instance, newUnsetProps)
   }
+
+  if (newUnsetProps.length > 0) {
+    console.warn("Infinite loop detected with remaining props", newUnsetProps)
+  }
+
+  return instance
 }
 
 function start() {
-  // TODO: Break this into single purpose functions
-  // The original config
-  const rootNode = Object.values(rootData)[0]
-  // All of the nodes possible props
-  const rootNodeProps = Object.keys(rootNode)
-
-  // Holds all the instances and their generated data
-  const data = new Array(count)
-
-  for (i = 0; i < count; i++) {
-    data[i] = {}
-  }
-
-  data.forEach((instance, index) => {
-    updateProps(rootNode, instance, rootNodeProps)
-  })
-
-  generateFile(data)
+  types.map(generateType)
 }
 
-function generateFile(data) {
+function generateFile(data, type) {
   const writeData = JSON.stringify(data, null, 2)
 
   // TODO: is using where the console is, fix this
-  fs.writeFile(`./Generated/${root}.json`, writeData, function (err) {
+  fs.writeFile(`./Generated/${type}.json`, writeData, function (err) {
     if (err) throw err
-    console.log("File is created successfully.")
+    console.log(`File ${type} is created successfully.`)
   })
 }
 

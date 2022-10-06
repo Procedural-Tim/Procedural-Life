@@ -1,0 +1,8 @@
+{
+  "types": [
+    {
+      "type": "Person",
+      "instanceCount": 10
+    }
+  ]
+}

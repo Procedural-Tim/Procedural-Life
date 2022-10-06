@@ -3,11 +3,11 @@ const {
   getRandomValue,
   getRandomValueWithArray,
   getWeightedRandomValue,
-} = require("../Static/functions")
-const { maleNames, femaleNames, lastNames } = require("../Static/names")
-const { professions } = require("../Static/professions")
-const { races } = require("../Static/races")
-const { traits, adultTraits } = require("../Static/traits")
+} = require("../../../Static/functions")
+const { maleNames, femaleNames, lastNames } = require("../Data/names")
+const { professions } = require("../Data/professions")
+const { races } = require("../Data/races")
+const { traits, adultTraits } = require("../Data/traits")
 
 const Male = "M"
 const Female = "F"
@@ -24,10 +24,6 @@ function getFirstName(dependencies) {
   }
 
   return getRandomValue(femaleNames)
-}
-
-function roleStat() {
-  return getRandomInt(1, 6) + getRandomInt(1, 6) + getRandomInt(1, 6)
 }
 
 function getAge() {
@@ -160,84 +156,18 @@ function getTraits(dep) {
   return generatedTraits
 }
 
-// Our first type, it is meant to represent an npc
-const person = {
-  sex: {
-    method: getSex,
-  },
-  firstName: {
-    method: getFirstName,
-    // Can not be excuted till this property has been Generated
-    // Dependencies are passed as the first parameter to functions
-    dependencies: ["sex"],
-  },
-  lastName: {
-    method: getLastName,
-  },
-  age: {
-    method: getAge,
-  },
-  profession: {
-    method: getProfession,
-    dependencies: [
-      "age",
-      "adjustedStr",
-      "adjustedDex",
-      "adjustedCon",
-      "adjustedCha",
-      "adjustedWis",
-      "adjustedInt",
-    ],
-  },
-  str: {
-    method: roleStat,
-  },
-  dex: {
-    method: roleStat,
-  },
-  con: {
-    method: roleStat,
-  },
-  cha: {
-    method: roleStat,
-  },
-  wis: {
-    method: roleStat,
-  },
-  int: {
-    method: roleStat,
-  },
-  race: {
-    method: getRace,
-  },
-  adjustedStr: {
-    method: adjStr,
-    dependencies: ["str", "age", "race"],
-  },
-  adjustedDex: {
-    method: adjDex,
-    dependencies: ["dex", "age", "race"],
-  },
-  adjustedCon: {
-    method: adjCon,
-    dependencies: ["con", "age", "race"],
-  },
-  adjustedCha: {
-    method: adjCha,
-    dependencies: ["cha", "age", "race"],
-  },
-  adjustedWis: {
-    method: adjWis,
-    dependencies: ["wis", "age", "race"],
-  },
-  adjustedInt: {
-    method: adjInt,
-    dependencies: ["int", "age", "race"],
-  },
-  traits: {
-    method: getTraits,
-    dependencies: ["age"],
-  },
+module.exports = {
+  getSex,
+  getFirstName,
+  getLastName,
+  getAge,
+  getProfession,
+  getRace,
+  adjStr,
+  adjDex,
+  adjCon,
+  adjCha,
+  adjWis,
+  adjInt,
+  getTraits,
 }
-
-module.exports = { person }

@@ -4,10 +4,15 @@ A hobby project that aims to create an interconnected world via procedural gener
 
 # Notes
 
-As a hobby project certain things should be noted.
+## Hobby Project
 
 - Decisions are based on what I find interesting, not what would be best in a professional environment.
 - Configurations are very simplified, ie I have simplified sex to only M/F. This is not meant to be commentary but is instead a reflection of my limited time.
+
+## Trouble Shooting
+
+- There is no overwrite protection, if you name two things the same thing they may stomp on each other
+- Case matters
 
 # To run
 
@@ -18,7 +23,6 @@ As a hobby project certain things should be noted.
 
 # Roadmap (Very rough)
 
-1. Config packages, ie Fantasy package
 1. Spellcheck literals
 1. Crude story module
 1. Multiple node types
@@ -30,10 +34,11 @@ As a hobby project certain things should be noted.
 
 Technical List
 
+1. Add debugger to generator
 1. Flesh out formatter
 1. Add linter
 1. Consider yarn
-1. Consider supporting Deno
+1. Consider supporting Deno (probably a no go)
 
 # Components
 
@@ -41,27 +46,25 @@ Technical List
 
 The engine that builds the graph of procedurally generated nodes
 
-## Nodes
+The manifest file points to a folder in configs to use.
 
-The different things you configure to generate your data
+## Configs
 
-### Node
+A collection of different pre made configs to use to generate data, or as an example to build your own from.
 
-The single configured node export by the files. Exported as a named property.
-This is currently a D&D friendly npc as a sample
-Currently we only support working within the node and a single node
+The manifest points to a specific file in types, note this is the FILE name not the export name.
 
-#### Planned functionality:
+Currently this only contains a D and D friendly config.
 
-- Multiple node generation at once
-- - Have one node use another node
-- Multiple sample sets
+### Type
+
+A configuration that defines what a thing can be. Each type should have a single exported configuration. The generator will ignore every export except the first.
 
 ### functions
 
-Utility functions used by the node, functions always get dependencies passed as the first parameter, they should not be exported.
+Utility functions used internally by the config. Functions used directly by the config always get dependencies passed as an array into the first parameter.
 
-## Static
+### Data
 
 Static resources
 
