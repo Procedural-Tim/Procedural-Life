@@ -11,6 +11,7 @@ function getRandomValue(values) {
   return getRandomValueWithArray(values).value
 }
 
+// Returns a random value and the values array minus the value returned
 function getRandomValueWithArray(values) {
   const newValues = [...values]
   const value = newValues.splice(getRandomInt(0, values.length - 1), 1)[0]
@@ -27,7 +28,7 @@ function getWeightedRandomValue(values = []) {
       const value = val.value ?? val
       const weight = val.weight ?? 1
 
-      for (i = 0; i < weight; i++) {
+      for (let i = 0; i < weight; i++) {
         acc.push(value)
       }
 

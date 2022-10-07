@@ -1,5 +1,4 @@
 const {
-  getRandomInt,
   getRandomValue,
   getRandomValueWithArray,
   getWeightedRandomValue,
@@ -29,7 +28,7 @@ function getFirstName(dependencies) {
 function getAge() {
   const ages = new Array()
   // Crude way of favoring earlier ages
-  for (i = 0; i < 100; i++) {
+  for (let i = 0; i < 100; i++) {
     if (i < 20) {
       ages.push({
         value: i,
@@ -66,7 +65,7 @@ function getLastName() {
 }
 
 function getProfession(deps) {
-  const [age, str, dex, con, cha, wis, int] = deps
+  const [age] = deps
   const prof = getWeightedRandomValue(
     professions
       .map((prof) => ({
@@ -103,32 +102,32 @@ function getRace() {
 }
 
 function adjStr(dep) {
-  const [stat, age, race] = dep
+  const [stat, , race] = dep
   return stat + (race === races["Half-Ork"].label ? 2 : 0)
 }
 
 function adjDex(dep) {
-  const [stat, age, race] = dep
+  const [stat, , race] = dep
   return stat + (race === races.Elf.label ? 2 : 0)
 }
 
 function adjCon(dep) {
-  const [stat, age, race] = dep
+  const [stat, , race] = dep
   return stat + (race === races.Dwarf.label ? 2 : 0)
 }
 
 function adjCha(dep) {
-  const [stat, age, race] = dep
+  const [stat, , race] = dep
   return stat + (race === races.Halfling.label ? 2 : 0)
 }
 
 function adjWis(dep) {
-  const [stat, age, race] = dep
+  const [stat, , race] = dep
   return stat + (race === races.Kobold.label ? 2 : 0)
 }
 
 function adjInt(dep) {
-  const [stat, age, race] = dep
+  const [stat, , race] = dep
   return stat + (race === races.Gnome.label ? 2 : 0)
 }
 
@@ -143,7 +142,7 @@ function getTraits(dep) {
   let localTraits = age < 18 ? [...traits] : [...traits, ...adultTraits]
   const generatedTraits = []
 
-  for (i = 0; i < traitCount; i++) {
+  for (let i = 0; i < traitCount; i++) {
     const { value: newTrait, newValues: newTraits } = getRandomValueWithArray(
       localTraits,
       true

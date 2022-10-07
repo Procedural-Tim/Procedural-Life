@@ -1,0 +1,12 @@
+{
+  "types": [
+    {
+      "type": "person",
+      "instanceCount": 10
+    },
+    {
+      "type": "family",
+      "instanceCount": 10
+    }
+  ]
+}

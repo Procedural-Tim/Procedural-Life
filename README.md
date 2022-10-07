@@ -1,13 +1,13 @@
 # Procedural-Life
 
-A hobby project that aims to create an interconnected world via procedural generation and a set of configuration files. From D and D to RPGs the goal is to make your world feel lived in without having to build every npc, knife, town, etc your self.
+A hobby project that aims to create an interconnected world via procedural generation and a set of configuration files. From D and D to Computer RPGs the goal is to make your world feel lived in without having to build every npc, knife, town, etc your self.
 
 # Notes
 
 ## Hobby Project
 
 - Decisions are based on what I find interesting, not what would be best in a professional environment.
-- Configurations are very simplified, ie I have simplified sex to only M/F. This is not meant to be commentary but is instead a reflection of my limited time.
+- Configurations are simplified and best guesses, ie I have simplified sex to only M/F. This is not meant to be commentary but is instead a reflection of my limited time.
 
 ## Trouble Shooting
 
@@ -25,7 +25,6 @@ A hobby project that aims to create an interconnected world via procedural gener
 
 1. Spellcheck literals
 1. Crude story module
-1. Multiple node types
 1. Dependencies between nodes
 1. Electron
 1. Templates
@@ -34,6 +33,7 @@ A hobby project that aims to create an interconnected world via procedural gener
 
 Technical List
 
+1. Cleanup data so it fits a standard, including switching to all having weights just a weight of 1 if not supplied
 1. Add debugger to generator
 1. Flesh out formatter
 1. Add linter

@@ -1,3 +1,3 @@
-const { start } = require("./Core/generate")
+const { start } = require("./src/Core/generate")
 
 start()

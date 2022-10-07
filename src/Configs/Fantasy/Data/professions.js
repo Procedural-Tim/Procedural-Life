@@ -5,43 +5,33 @@ function getStatScore(stat) {
     case 0:
     case 1:
       return -4
-      break
     case 2:
     case 3:
       return -3
-      break
     case 4:
     case 5:
       return -2
-      break
     case 6:
     case 7:
       return -1
-      break
     case 8:
     case 9:
       return 0
-      break
     case 10:
     case 11:
       return 1
-      break
     case 12:
     case 13:
       return 2
-      break
     case 14:
     case 15:
       return 3
-      break
     case 16:
     case 17:
       return 4
-      break
     case 18:
     case 19:
       return 5
-      break
     default:
       return 0
   }
@@ -55,7 +45,7 @@ function getStatScore(stat) {
 const professions = [
   {
     title: "Butcher",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex) => {
       return getStatScore(str) + getStatScore(dex) + 2
     },
   },
@@ -81,61 +71,61 @@ const professions = [
   },
   {
     title: "Stone Carver",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con, cha, wis) => {
       return getStatScore(str) + getStatScore(dex) + getStatScore(wis) + 3
     },
   },
   {
     title: "Carpenter",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con, cha, wis) => {
       return getStatScore(dex) + getStatScore(wis) + 2
     },
   },
   {
     title: "Baker",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con) => {
       return getStatScore(con) + 2
     },
   },
   {
     title: "Stable Hand",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con, cha, wis) => {
       return getStatScore(cha) + getStatScore(wis) + 2
     },
   },
   {
     title: "Stable Master",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con, cha, wis) => {
       return age < 18 ? -4 : 0 + getStatScore(cha) + getStatScore(wis)
     },
   },
   {
     title: "Cook",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con, cha, wis) => {
       return getStatScore(dex) + getStatScore(wis) + 4
     },
   },
   {
     title: "Servant",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con, cha, wis) => {
       return getStatScore(cha) + getStatScore(wis) + 2
     },
   },
   {
     title: "Messenger",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con, cha) => {
       return age < 18 ? -2 : 0 + getStatScore(cha) + getStatScore(con)
     },
   },
   {
     title: "Fletcher",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex) => {
       return getStatScore(dex) + 1
     },
   },
   {
     title: "Bowyer",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex) => {
       return getStatScore(str) + getStatScore(dex) + 2
     },
   },
@@ -149,13 +139,13 @@ const professions = [
   },
   {
     title: "Guard",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex) => {
       return age < 18 ? -1 : 0 + getStatScore(str) + getStatScore(dex) + 4
     },
   },
   {
     title: "Knight",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con, cha) => {
       return age < 18
         ? -4
         : 0 + getStatScore(str) + getStatScore(dex) + getStatScore(cha)
@@ -163,13 +153,13 @@ const professions = [
   },
   {
     title: "Blacksmith",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con) => {
       return getStatScore(str) + getStatScore(dex) + getStatScore(con) + 3
     },
   },
   {
     title: "Innkeeper",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con, cha) => {
       return getStatScore(cha) + 1
     },
   },
@@ -193,37 +183,37 @@ const professions = [
   },
   {
     title: "Wheelwright",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex) => {
       return getStatScore(dex) + 2
     },
   },
   {
     title: "Shoemaker",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex) => {
       return getStatScore(dex) + 1
     },
   },
   {
     title: "Tanner",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex) => {
       return getStatScore(dex) + 1
     },
   },
   {
     title: "Clother",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex) => {
       return getStatScore(dex) + 1
     },
   },
   {
     title: "Laborer",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex, con) => {
       return getStatScore(str) + getStatScore(con)
     },
   },
   {
     title: "Candlemaker",
-    getQualificationLevel: (age, str, dex, con, cha, wis, int) => {
+    getQualificationLevel: (age, str, dex) => {
       return getStatScore(dex) + 1
     },
   },

@@ -1,0 +1,42 @@
+[
+  {
+    "status": "unknown",
+    "wealth": "homeless"
+  },
+  {
+    "status": "unknown",
+    "wealth": "middle"
+  },
+  {
+    "status": "unknown",
+    "wealth": "middle"
+  },
+  {
+    "status": "disliked",
+    "wealth": "poor"
+  },
+  {
+    "status": "unknown",
+    "wealth": "homeless"
+  },
+  {
+    "status": "unknown",
+    "wealth": "broke"
+  },
+  {
+    "status": "unknown",
+    "wealth": "poor"
+  },
+  {
+    "status": "unknown",
+    "wealth": "poor"
+  },
+  {
+    "status": "neutral",
+    "wealth": "lower middle"
+  },
+  {
+    "status": "unknown",
+    "wealth": "middle"
+  }
+]
