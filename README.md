@@ -11,6 +11,7 @@ A hobby project that aims to create an interconnected world via procedural gener
 
 ## Trouble Shooting
 
+- There is a debug flag in core, right now it's hardcoded to off. Flip it on to get extra logging on generation for debugging purposes.
 - There is no overwrite protection, if you name two things the same thing they may stomp on each other
 - Case matters
 
@@ -23,22 +24,28 @@ A hobby project that aims to create an interconnected world via procedural gener
 
 # Roadmap (Very rough)
 
-1. Spellcheck literals
+1. Templates
 1. Crude story module
 1. Dependencies between nodes
 1. Electron
-1. Templates
+1. Spellcheck literals
 1. Consider using a database
 1. Expose static variables so things like gender ratio can be more easily adjusted.
 
-Technical List
-
+## Technical Stuff
 1. Cleanup data so it fits a standard, including switching to all having weights just a weight of 1 if not supplied
-1. Add debugger to generator
-1. Flesh out formatter
-1. Add linter
-1. Consider yarn
-1. Consider supporting Deno (probably a no go)
+1. Support weight 0
+1. Expose the generator debugger at the command line
+1. Consider supporting Deno
+
+## Beyond the Roadmap
+* More sophisticated story generation
+* Pic generation
+* Map generation
+* Dungeon generation
+* Quests
+* API
+* Time
 
 # Components
 
@@ -48,7 +55,7 @@ The engine that builds the graph of procedurally generated nodes
 
 The manifest file points to a folder in configs to use.
 
-## Configs
+## src/Configs
 
 A collection of different pre made configs to use to generate data, or as an example to build your own from.
 
@@ -56,53 +63,20 @@ The manifest points to a specific file in types, note this is the FILE name not 
 
 Currently this only contains a D and D friendly config.
 
-### Type
+### src/Configs/<Name>/Type
 
-A configuration that defines what a thing can be. Each type should have a single exported configuration. The generator will ignore every export except the first.
+A configuration that defines what a thing can be. Each type should have a single exported configuration. The generator will ignore every export except the first. Properties should never start with "_". "_" is used internally for things like "_id".
 
-### functions
+### src/Configs/<Name>/Functions
 
-Utility functions used internally by the config. Functions used directly by the config always get dependencies passed as an array into the first parameter.
+Utility functions to be used internally to the config.
 
-### Data
+When a function is invoked as a property of a type it is passed the dependency values in an array as the first parameter.
 
-Static resources
+### src/Configs/<Name>/Data
 
-## Generated
+Static resources, currently contains some internal functions, the plan is to remove or simplify this.
 
-Where it all gets put
+## ./Generated
 
-### Planned functionality:
-
-- Make it relative to the app
-- Make it configurable
-
-## Story (Planned)
-
-Turns all that data into story elements
-Long term goal
-
-## Templates (Planned)
-
-Turn the generated file into html files for more human readable interaction
-
-## Pics (Planned)
-
-## GUI (Planned)
-
-Turn it all into a package
-
-## Quest (Planned)
-
-Generates a set of quests based on the data
-Long term goal
-
-## API (Planned)
-
-For connecting other programs to the data
-Long term goal
-
-## Time (Planned)
-
-For advancing time, basically adds a layer of simulation on top of everything.
-Long term goal
+Where it all gets put, contains a sample of the current generation. Currently uses your location in the console.

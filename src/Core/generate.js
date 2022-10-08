@@ -1,4 +1,5 @@
 const fs = require("fs")
+const path = require('node:path');
 const coreManifest = require("./manifest")
 const configPath = `../Configs/${coreManifest.config}`
 
@@ -21,7 +22,9 @@ function generateType(typeConfig) {
   // iteration.
   for (let i = 0; i < instanceCount; i++) {
     debugLogger("Creating instance ", i)
-    instances[i] = updateProps(specification, {}, props)
+    instances[i] = generateProps(specification, {
+      _id: i,
+    }, props)
   }
 
   generateFile(instances, type)
@@ -29,7 +32,7 @@ function generateType(typeConfig) {
 
 // Recursive function that mutates instance untill it reaches the end then
 // returns the instance
-function updateProps(specification, instance, oldUnsetProps) {
+function generateProps(specification, instance, oldUnsetProps) {
   const newUnsetProps = [...oldUnsetProps]
   debugLogger("Attempting to set props", newUnsetProps)
 
@@ -59,7 +62,7 @@ function updateProps(specification, instance, oldUnsetProps) {
 
   // Infinite loop prevention
   if (newUnsetProps.length > 0 && newUnsetProps.length < oldUnsetProps.length) {
-    return updateProps(specification, instance, newUnsetProps)
+    return generateProps(specification, instance, newUnsetProps)
   }
 
   if (newUnsetProps.length > 0) {
@@ -77,9 +80,15 @@ function start() {
 function generateFile(data, type) {
   debugLogger("Writing to file")
   const writeData = JSON.stringify(data, null, 2)
+  const currentDateTime = new Date().toISOString().split(":",2).join("-");
+  const dir = `./Generated/${currentDateTime}`;
+
+  if (!fs.existsSync(dir)){
+      fs.mkdirSync(dir, { recursive: true });
+  }
 
   // TODO: This is using where the bash console is, fix this
-  fs.writeFile(`./Generated/${type}.json`, writeData, function (err) {
+  fs.writeFile(`${dir}/${type}.json`, writeData, function (err) {
     if (err) throw err
     console.log(`File ${type} is created successfully.`)
   })
