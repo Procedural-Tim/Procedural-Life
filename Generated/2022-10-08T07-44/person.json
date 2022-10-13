@@ -1,0 +1,54 @@
+[
+  {
+    "_id": 0,
+    "sex": "F",
+    "firstName": "Laura",
+    "lastName": "TORRES",
+    "age": 36,
+    "str": 11,
+    "dex": 4,
+    "con": 12,
+    "cha": 8,
+    "wis": 9,
+    "int": 4,
+    "race": "Human",
+    "adjustedStr": 11,
+    "adjustedDex": 4,
+    "adjustedCon": 12,
+    "adjustedCha": 8,
+    "adjustedWis": 9,
+    "adjustedInt": 4,
+    "traits": [
+      "Drunkard",
+      "Empathic",
+      "Chaste"
+    ],
+    "profession": "Laborer",
+    "_family": 0
+  },
+  {
+    "_id": 1,
+    "sex": "M",
+    "firstName": "Henry",
+    "lastName": "MITCHELL",
+    "age": 42,
+    "str": 13,
+    "dex": 9,
+    "con": 13,
+    "cha": 13,
+    "wis": 11,
+    "int": 13,
+    "race": "Half-Ork",
+    "adjustedStr": 15,
+    "adjustedDex": 9,
+    "adjustedCon": 13,
+    "adjustedCha": 13,
+    "adjustedWis": 11,
+    "adjustedInt": 13,
+    "traits": [
+      "Sociopath"
+    ],
+    "profession": "Apothecary",
+    "_family": 1
+  }
+]
