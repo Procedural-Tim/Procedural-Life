@@ -32,7 +32,6 @@ function generateType(configName, typeConfig) {
 
 function getExternalInstance(
   srcId,
-  srcType,
   dependencies,
   externalDependency,
   configPath
@@ -49,10 +48,9 @@ function getExternalInstance(
     // IE if we have 10 families, because we built our families first, and we always pick the first available family
     // it will favor families that are full, or empty
     const instance = getRandomValue(instances)
-    // TODO: Fix when I fix bidirectional
     updateInstance(type, {
       ...instance,
-      [externalProp]: [...instance[externalProp], `${srcType}-${srcId}`],
+      [externalProp]: [...instance[externalProp], srcId],
     })
 
     return instance
@@ -63,12 +61,13 @@ function getExternalInstance(
   const specification = Object.values(require(`${configPath}/Types/${type}`))[0]
   const props = Object.keys(specification)
 
-  // TODO: Fix as part of the bidirectional fix
+  // NOTE: This assumes a newly created instance passes the filter
+  // TODO: loop till the filter passes
   const newExternal = createInstance(
     specification,
     {
       _id: getNewId(type),
-      [externalProp]: [`${srcType}-${srcId}`],
+      [externalProp]: [srcId],
     },
     props,
     type,
@@ -107,15 +106,13 @@ function createInstance(
 
       // Mutates
       if (externalDependency) {
-        instance[prop] = `${externalDependency.type}-${
+        instance[prop] =
           getExternalInstance(
             instance._id,
-            type,
             dependencies,
             externalDependency,
             configPath
           )._id
-        }`
       } else {
         instance[prop] = specification[prop].method(dependencyValues)
       }

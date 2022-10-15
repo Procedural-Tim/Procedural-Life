@@ -25,6 +25,11 @@ function getFirstName(dependencies) {
   return getRandomValue(femaleNames)
 }
 
+// TODO: Allow a unique fetch
+function getLastName() {
+  return getRandomValue(lastNames);
+}
+
 function getAge() {
   const ages = new Array()
   // Crude way of favoring earlier ages
@@ -58,10 +63,6 @@ function getAge() {
   }
 
   return getWeightedRandomValue(ages)
-}
-
-function getLastName() {
-  return getRandomValue(lastNames)
 }
 
 function getProfession(deps) {
@@ -158,7 +159,6 @@ function getTraits(dep) {
 module.exports = {
   getSex,
   getFirstName,
-  getLastName,
   getAge,
   getProfession,
   getRace,
@@ -169,4 +169,5 @@ module.exports = {
   adjWis,
   adjInt,
   getTraits,
+  getLastName,
 }

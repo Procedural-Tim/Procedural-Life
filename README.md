@@ -8,6 +8,7 @@ A hobby project that aims to create an interconnected world via procedural gener
 
 - Decisions are based on what I find interesting, not what would be best in a professional environment.
 - Configurations are simplified and best guesses, ie I have simplified sex to only M/F. This is not meant to be commentary but is instead a reflection of my limited time.
+- When I say we I am refering to my metaphorical rubber ducky. Said ducky may be my spouse, the cat, or an actual rubber ducky.
 
 ## Trouble Shooting
 
@@ -24,28 +25,34 @@ A hobby project that aims to create an interconnected world via procedural gener
 
 # Roadmap (Very rough)
 
-1. Templates
-1. Crude story module
-1. Dependencies between nodes
 1. Electron
+1. Templates
+1. Friends
+1. Close Friends
+1. Enemies
+1. Crude story module
 1. Spellcheck literals
 1. Consider using a database
 1. Expose static variables so things like gender ratio can be more easily adjusted.
 
 ## Technical Stuff
+
+1. Proper templating engine, probaly after eletron since that will drive a bunch of the ui
+1. Typescript
 1. Cleanup data so it fits a standard, including switching to all having weights just a weight of 1 if not supplied
 1. Support weight 0
-1. Expose the generator debugger at the command line
+1. Debugger
 1. Consider supporting Deno
 
 ## Beyond the Roadmap
-* More sophisticated story generation
-* Pic generation
-* Map generation
-* Dungeon generation
-* Quests
-* API
-* Time
+
+- More sophisticated story generation
+- Pic generation
+- Map generation
+- Dungeon generation
+- Quests
+- API
+- Time
 
 # Components
 
@@ -65,7 +72,7 @@ Currently this only contains a D and D friendly config.
 
 ### src/Configs/<Name>/Type
 
-A configuration that defines what a thing can be. Each type should have a single exported configuration. The generator will ignore every export except the first. Properties should never start with "_". "_" is used internally for things like "_id".
+A configuration that defines what a thing can be. Each type should have a single exported configuration. The generator will ignore every export except the first. Properties should never start with "_". "_" is used internally for things like "\_id". It also does not support sub folders at this point.
 
 ### src/Configs/<Name>/Functions
 

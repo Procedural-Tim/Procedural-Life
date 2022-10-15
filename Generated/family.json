@@ -1,0 +1,177 @@
+[
+  {
+    "_id": 0,
+    "members": [
+      0
+    ],
+    "status": "unknown",
+    "wealth": "lower middle",
+    "size": 1,
+    "name": "LONG"
+  },
+  {
+    "_id": 1,
+    "members": [
+      1,
+      14,
+      23
+    ],
+    "status": "unknown",
+    "wealth": "poor",
+    "size": 3,
+    "name": "ROBERTS"
+  },
+  {
+    "_id": 2,
+    "members": [
+      2,
+      5,
+      7,
+      12,
+      21,
+      25
+    ],
+    "status": "unknown",
+    "wealth": "middle",
+    "size": 6,
+    "name": "LEWIS"
+  },
+  {
+    "_id": 3,
+    "members": [
+      3,
+      10,
+      11,
+      36
+    ],
+    "status": "unknown",
+    "wealth": "homeless",
+    "size": 4,
+    "name": "FOSTER"
+  },
+  {
+    "_id": 4,
+    "members": [
+      4
+    ],
+    "status": "unknown",
+    "wealth": "lower middle",
+    "size": 1,
+    "name": "GARCIA"
+  },
+  {
+    "_id": 5,
+    "members": [
+      6,
+      24,
+      39
+    ],
+    "status": "unknown",
+    "wealth": "uper middle",
+    "size": 3,
+    "name": "SANCHEZ"
+  },
+  {
+    "_id": 6,
+    "members": [
+      8,
+      15
+    ],
+    "status": "unknown",
+    "wealth": "poor",
+    "size": 2,
+    "name": "ADAMS"
+  },
+  {
+    "_id": 7,
+    "members": [
+      9,
+      17,
+      28,
+      29,
+      30
+    ],
+    "status": "unknown",
+    "wealth": "lower middle",
+    "size": 5,
+    "name": "TAYLOR"
+  },
+  {
+    "_id": 8,
+    "members": [
+      13,
+      16,
+      19,
+      22
+    ],
+    "status": "unknown",
+    "wealth": "uper middle",
+    "size": 6,
+    "name": "SANCHEZ"
+  },
+  {
+    "_id": 9,
+    "members": [
+      18,
+      33,
+      38
+    ],
+    "status": "hated",
+    "wealth": "poor",
+    "size": 6,
+    "name": "MORRIS"
+  },
+  {
+    "_id": 10,
+    "members": [
+      20
+    ],
+    "status": "unknown",
+    "wealth": "poor",
+    "size": 1,
+    "name": "MYERS"
+  },
+  {
+    "_id": 11,
+    "members": [
+      26,
+      27
+    ],
+    "status": "neutral",
+    "wealth": "lower middle",
+    "size": 3,
+    "name": "RICHARDSON"
+  },
+  {
+    "_id": 12,
+    "members": [
+      31,
+      34
+    ],
+    "status": "liked",
+    "wealth": "lower middle",
+    "size": 4,
+    "name": "PHILLIPS"
+  },
+  {
+    "_id": 13,
+    "members": [
+      32,
+      37
+    ],
+    "status": "neutral",
+    "wealth": "broke",
+    "size": 5,
+    "name": "RAMOS"
+  },
+  {
+    "_id": 14,
+    "members": [
+      35
+    ],
+    "status": "neutral",
+    "wealth": "middle",
+    "size": 3,
+    "name": "LONG"
+  }
+]

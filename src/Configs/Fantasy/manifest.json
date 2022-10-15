@@ -2,11 +2,11 @@
   "types": [
     {
       "type": "person",
-      "instanceCount": 10
-    },
-    {
-      "type": "family",
-      "instanceCount": 10
+      "instanceCount": 40,
+      "template": {
+        "name": "person",
+        "data": [["family", "members"]]
+      }
     }
   ]
 }
