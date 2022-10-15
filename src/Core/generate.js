@@ -20,7 +20,7 @@ function start() {
 }
 
 function generateFile(data, type) {
-  console.log("writing to file")  
+  console.log("writing to file")
   const writeData = JSON.stringify(data, null, 2)
   const currentDateTime = new Date().toISOString().split(":", 2).join("-")
   const dir = useDateForWrite
@@ -36,29 +36,6 @@ function generateFile(data, type) {
     if (err) throw err
     console.log(`File ${type} is created successfully.`)
   })
-
-  const templateConfig = types[type]?.template;
-  if (templateConfig) {
-    // generateTemplates(type, templateConfig)
-  }
 }
-
-// function generateTemplates(type, templateConfig) {
-//   const { name, data } = templateConfig;
-
-//   const specification = Object.values(require(`${configPath}/Types/${type}`))[0]
-//   const template = require(`${configPath}/Templates/${name}`);
-
-//   const instances = getAll(type);
-//   const fullData = instances.map(instance => {
-//     // Root
-//     data.forEach(dataPath => {
-//       // The set of relations we want to deep populate
-//       dataPath.forEach(pathElement => {
-//         instance
-//       })
-//     })
-//   })
-// }
 
 module.exports = { start }

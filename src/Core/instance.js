@@ -106,13 +106,12 @@ function createInstance(
 
       // Mutates
       if (externalDependency) {
-        instance[prop] =
-          getExternalInstance(
-            instance._id,
-            dependencies,
-            externalDependency,
-            configPath
-          )._id
+        instance[prop] = getExternalInstance(
+          instance._id,
+          dependencies,
+          externalDependency,
+          configPath
+        )._id
       } else {
         instance[prop] = specification[prop].method(dependencyValues)
       }

@@ -27,7 +27,7 @@ function getFirstName(dependencies) {
 
 // TODO: Allow a unique fetch
 function getLastName() {
-  return getRandomValue(lastNames);
+  return getRandomValue(lastNames)
 }
 
 function getAge() {

@@ -15,8 +15,8 @@ const family = {
     },
   },
   name: {
-    method: getLastName
-  }
+    method: getLastName,
+  },
   // Members, defined in the person relationship
 }
 

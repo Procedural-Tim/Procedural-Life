@@ -1,8 +1,9 @@
-const { getRandomInt, getWeightedRandomValue } = require("../../../Static/functions")
-
 const {
-  getTypeInstances,
-} = require("../../../Core/typeRegistry")
+  getRandomInt,
+  getWeightedRandomValue,
+} = require("../../../Static/functions")
+
+const { getTypeInstances } = require("../../../Core/typeRegistry")
 
 const {
   getSex,
@@ -51,25 +52,32 @@ const person = {
       // The assumption is a new family will meet the filter
       // TODO: Move the filter into the relationship section (Does not currently exist)
       filter: (dependencies, externalInstance) => {
-        const [ age, race ] = dependencies;
-        const currentInstances = getTypeInstances("person");
+        const [age, race] = dependencies
+        const currentInstances = getTypeInstances("person")
 
-        const currentMembers = externalInstance.members.map(personId => {
+        const currentMembers = externalInstance.members.map((personId) => {
           // TODO: look into using the index as a starting point to make more performant
-          return currentInstances.find(person => person._id === personId)
-        });
+          return currentInstances.find((person) => person._id === personId)
+        })
 
-        const matchesFamilyRaces = currentMembers.some(member => member.race === race);
-        const ageBracketOpen = age < 20 || currentMembers.filter(member => Math.abs(member.age - age) > 20).length < 3;
+        const matchesFamilyRaces = currentMembers.some(
+          (member) => member.race === race
+        )
+        const ageBracketOpen =
+          age < 20 ||
+          currentMembers.filter((member) => Math.abs(member.age - age) > 20)
+            .length < 3
 
         // Even if the race doesn't match any of the families current races their is a 20% chance to add them anyway
-        const racePasses = matchesFamilyRaces || getRandomInt(1,10) > 8;
+        const racePasses = matchesFamilyRaces || getRandomInt(1, 10) > 8
         // Even if they are an adult, and two adults in the age band exist their is a 40% chance to add them anyway
-        const agePasses = ageBracketOpen || getRandomInt(1,10) > 6;
+        const agePasses = ageBracketOpen || getRandomInt(1, 10) > 6
 
-        return (racePasses && agePasses && (
-          externalInstance?.members === undefined ||
-          externalInstance.size > externalInstance.members.length)
+        return (
+          racePasses &&
+          agePasses &&
+          (externalInstance?.members === undefined ||
+            externalInstance.size > externalInstance.members.length)
         )
       },
       // TODO: Need to define the other half of this bidirectional relationship better, but I need sleep so doing it tomorrow.
@@ -85,7 +93,7 @@ const person = {
   gender: {
     // TODO: Move to it's own function
     method: (dependencies) => {
-      const [sex] = dependencies;
+      const [sex] = dependencies
 
       // TODO: Get some real numbers so I'm not taking a wild guess at these ratios.
       return getWeightedRandomValue([
@@ -104,41 +112,52 @@ const person = {
         {
           weight: 4,
           value: "Other",
-        }
-      ])      
+        },
+      ])
     },
     dependencies: ["sex"],
   },
   // TODO: Move the function out
   alignment: {
-    method: () => getWeightedRandomValue([{
-      weight: 1,
-      value: "chaotic evil",
-    },{
-      weight: 2,
-      value: "neutral evil",
-    },{
-      weight: 1,
-      value: "lawful evil",
-    },{
-      weight: 2,
-      value: "chaotic neutral",
-    },{
-      weight: 4,
-      value: "neutral",
-    },{
-      weight: 2,
-      value: "lawful neutral",
-    },{
-      weight: 1,
-      value: "chaotic good",
-    },{
-      weight: 2,
-      value: "neutral good",
-    },{
-      weight: 1,
-      value: "lawful good",
-    },])
+    method: () =>
+      getWeightedRandomValue([
+        {
+          weight: 1,
+          value: "chaotic evil",
+        },
+        {
+          weight: 2,
+          value: "neutral evil",
+        },
+        {
+          weight: 1,
+          value: "lawful evil",
+        },
+        {
+          weight: 2,
+          value: "chaotic neutral",
+        },
+        {
+          weight: 4,
+          value: "neutral",
+        },
+        {
+          weight: 2,
+          value: "lawful neutral",
+        },
+        {
+          weight: 1,
+          value: "chaotic good",
+        },
+        {
+          weight: 2,
+          value: "neutral good",
+        },
+        {
+          weight: 1,
+          value: "lawful good",
+        },
+      ]),
   },
   age: {
     method: getAge,
