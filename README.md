@@ -10,9 +10,11 @@ A hobby project that aims to create an interconnected world via procedural gener
 - Configurations are simplified and best guesses, ie I have simplified sex to only M/F. This is not meant to be commentary but is instead a reflection of my limited time.
 - When I say we I am refering to my metaphorical rubber ducky. Said ducky may be my spouse, the cat, or an actual rubber ducky.
 
+## OS Support
+I have only my personal laptop (windows) to test on, and so I have opted not work on distributions for other OS options. In theory though an individual could download the code from GitHub and then run make to generate the package for their OS then share it with less code savy friends. I do plan to eventually support other OS options.
+
 ## Trouble Shooting
 
-- There is a debug flag in core, right now it's hardcoded to off. Flip it on to get extra logging on generation for debugging purposes.
 - There is no overwrite protection, if you name two things the same thing they may stomp on each other
 - Case matters
 
