@@ -2,24 +2,66 @@
   "name": "procedural-life",
   "version": "0.0.2",
   "description": "A hobby project that aims to create an interconnected world via procedural generation and a set of configuration files. From D and D to RPGs the goal is to make your world feel lived in without having to build every npc, knife, town, etc your self.",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
     "format": "npx prettier --write .",
     "lint": "npx eslint src",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Procedural-Tim/Procedural-Life.git"
   },
-  "author": "",
+  "author": { 
+    "name" : "Procedural Tim",
+   "email" : "bluedao@gmail.com"
+  },
   "license": "GNU GENERAL PUBLIC LICENSE",
   "bugs": {
     "url": "https://github.com/Procedural-Tim/Procedural-Life/issues"
   },
   "homepage": "https://github.com/Procedural-Tim/Procedural-Life#readme",
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.67",
+    "@electron-forge/maker-deb": "^6.0.0-beta.67",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.67",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.67",
+    "@electron-forge/maker-zip": "^6.0.0-beta.67",
+    "electron": "^21.1.1",
     "eslint": "^8.24.0",
     "prettier": "2.7.1"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "procedural_life"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }

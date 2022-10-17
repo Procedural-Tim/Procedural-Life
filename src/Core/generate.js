@@ -11,7 +11,7 @@ const { types } = configManifest
 
 // Turn this to true to generate the content into timestamped folders to prevent overriding
 // TODO: Once we have a GUI make this a flag that users can set.
-const useDateForWrite = false
+const useDateForWrite = true
 
 function start() {
   console.log("starting")

@@ -19,13 +19,14 @@ A hobby project that aims to create an interconnected world via procedural gener
 # To run
 
 1. Install node
-2. Download the code from github
-3. Make any changes you want to
-4. from the command line at the top of the source code run `node index.js`
+1. Download the code from github
+1. npm install
+1. Make any changes you want to
+1. from the command line at the top of the source code execute `npm run start`
+1. Click the generate button 
 
 # Roadmap (Very rough)
 
-1. Electron
 1. Templates
 1. Friends
 1. Close Friends
