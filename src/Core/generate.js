@@ -17,6 +17,10 @@ function start() {
   console.log("starting")
   types.map((typeConfig) => generateType(configName, typeConfig))
   Object.entries(getAll()).forEach(([type, data]) => generateFile(data, type))
+
+  return new Promise((resolve) => {
+    resolve(getAll())
+  })
 }
 
 function generateFile(data, type) {

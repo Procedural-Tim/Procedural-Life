@@ -11,6 +11,7 @@ A hobby project that aims to create an interconnected world via procedural gener
 - When I say we I am refering to my metaphorical rubber ducky. Said ducky may be my spouse, the cat, or an actual rubber ducky.
 
 ## OS Support
+
 I have only my personal laptop (windows) to test on, and so I have opted not work on distributions for other OS options. In theory though an individual could download the code from GitHub and then run make to generate the package for their OS then share it with less code savy friends. I do plan to eventually support other OS options.
 
 ## Trouble Shooting
@@ -25,29 +26,30 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 1. npm install
 1. Make any changes you want to
 1. from the command line at the top of the source code execute `npm run start`
-1. Click the generate button 
+1. Click the generate button
 
 # Roadmap (Very rough)
 
-1. Templates
-1. Friends
-1. Close Friends
-1. Enemies
-1. Crude story module
-1. Spellcheck literals
-1. Consider using a database
-1. Expose static variables so things like gender ratio can be more easily adjusted.
+## Version 1
 
-## Technical Stuff
+- Fix lifecycle
+- Templates
+- Friends
+- Close Friends
+- Enemies
+- Spellcheck literals
+- Weighted datastores
+- Expose root manifest
 
-1. Proper templating engine, probaly after eletron since that will drive a bunch of the ui
-1. Typescript
-1. Cleanup data so it fits a standard, including switching to all having weights just a weight of 1 if not supplied
-1. Support weight 0
-1. Debugger
-1. Consider supporting Deno
+## Version 2
 
-## Beyond the Roadmap
+- Crude story module
+- More configurable functions
+- Expose schema
+- Expose datastores
+- Expose some functions
+
+## Version Someday
 
 - More sophisticated story generation
 - Pic generation
@@ -56,6 +58,13 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 - Quests
 - API
 - Time
+
+## Technical TODO
+
+- Typescript
+- Cleanup data so it fits a standard
+- Debugger
+- Unit tests
 
 # Components
 

@@ -15,9 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/Procedural-Tim/Procedural-Life.git"
   },
-  "author": { 
-    "name" : "Procedural Tim",
-   "email" : "bluedao@gmail.com"
+  "author": {
+    "name": "Procedural Tim",
+    "email": "bluedao@gmail.com"
   },
   "license": "GNU GENERAL PUBLIC LICENSE",
   "bugs": {

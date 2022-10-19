@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <title>About</title>
+  </head>
+  <body>
+    <div>Fantasy Procedural Generator</div>
+    <div>Build: <span id="git-sha"></span></div>
+    <div><a id="git-link" href="#">Git Hub</a></div>
+    <br />
+    <div>Node.js: <span id="node-version"></span></div>
+    <div>Chromium: <span id="chrome-version"></span></div>
+    <div>Electron: <span id="electron-version"></span></div>
+    <br />
+    <div><button id="close-button">Close</button></div>
+    <script src="renderer.js"></script>
+  </body>
+</html>
