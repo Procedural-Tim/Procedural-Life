@@ -1,5 +1,5 @@
 const fs = require("fs")
-const { generateType } = require("./instance")
+const { initType, procInstance } = require("./instance")
 const { getAll } = require("./typeRegistry")
 const coreManifest = require("./manifest")
 const configName = coreManifest.config
@@ -15,7 +15,25 @@ const useDateForWrite = true
 
 function start() {
   console.log("starting")
-  types.map((typeConfig) => generateType(configName, typeConfig))
+
+  types.forEach(initType)
+
+  // Processing loop
+  Object.entries(getAll()).forEach(([type, data]) => {
+    console.log(`Processing ${type}`)
+    data.forEach((instance) => {
+      const specification = Object.values(
+        require(`${configPath}/Types/${type}`)
+      )[0]
+      const setProps = Object.keys(instance)
+      const unsetProps = Object.keys(specification).filter(
+        (specProp) => !setProps.includes(specProp)
+      )
+
+      procInstance(specification, instance, unsetProps, configPath, type)
+    })
+  })
+
   Object.entries(getAll()).forEach(([type, data]) => generateFile(data, type))
 
   return new Promise((resolve) => {

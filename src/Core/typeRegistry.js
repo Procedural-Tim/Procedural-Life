@@ -19,6 +19,10 @@ function getTypeInstances(type) {
   return [...types[type]]
 }
 
+function getTypeInstance(type, id) {
+  return getTypeInstances(type).find((instance) => instance._id === id)
+}
+
 function updateInstance(type, update) {
   types[type][
     types[type].findIndex((instance) => instance._id === update._id)
@@ -30,4 +34,10 @@ function getAll() {
   return { ...types }
 }
 
-module.exports = { addTypeInstance, getTypeInstances, updateInstance, getAll }
+module.exports = {
+  addTypeInstance,
+  getTypeInstances,
+  getTypeInstance,
+  updateInstance,
+  getAll,
+}

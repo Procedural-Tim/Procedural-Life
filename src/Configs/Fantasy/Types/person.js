@@ -1,10 +1,7 @@
+const { propTypes } = require("../../../Static/constants.js")
 const {
-  getRandomInt,
   getWeightedRandomValue,
 } = require("../../../Static/functions")
-
-const { getTypeInstances } = require("../../../Core/typeRegistry")
-
 const {
   getSex,
   getFirstName,
@@ -19,6 +16,7 @@ const {
   adjInt,
   getTraits,
 } = require("../Functions/functions")
+const { personToFamilyFilter } = require("../Relationships/personFamily")
 
 const { roll3D6 } = require("../Functions/dice")
 
@@ -34,55 +32,15 @@ const person = {
     // Dependencies are passed as the first parameter to functions
     dependencies: ["sex"],
   },
-  // A property with an eternal dependcy.
-  // External dependencies will attempt to find an instance that matches the filters,
-  // and if it can't find one it will create one.
-  // There is an invisible build relationship method here that will asign to family the the generated family type
-  // Like all property methods it takes in the value of dependencies as an array of values as the first parameter.
   family: {
-    // Like any other property d
+    // A special prop that defines a relationship between the instance and the instance of another type.
+    // Currently only supports n -> 1, ie a person can belong to one family but said family may have multiple memembers
+    // There is no method, instead the ids of each instance are assigned to the opposing instances prop
+    type: propTypes.EXTERNAL,
     dependencies: ["age", "race"],
-    // TODO: Whole thing needs work to make it more consistant and abstract.
-    // Also remove the inline filter
-    externalDependency: {
-      // The type name of the external dependency
-      type: "family",
-      // Allows reducing of the existing possible family list based on a filter function
-      // If this reduces the list to 0 a new family will be created.
-      // The assumption is a new family will meet the filter
-      // TODO: Move the filter into the relationship section (Does not currently exist)
-      filter: (dependencies, externalInstance) => {
-        const [age, race] = dependencies
-        const currentInstances = getTypeInstances("person")
-
-        const currentMembers = externalInstance.members.map((personId) => {
-          // TODO: look into using the index as a starting point to make more performant
-          return currentInstances.find((person) => person._id === personId)
-        })
-
-        const matchesFamilyRaces = currentMembers.some(
-          (member) => member.race === race
-        )
-        const ageBracketOpen =
-          age < 20 ||
-          currentMembers.filter((member) => Math.abs(member.age - age) > 20)
-            .length < 3
-
-        // Even if the race doesn't match any of the families current races their is a 20% chance to add them anyway
-        const racePasses = matchesFamilyRaces || getRandomInt(1, 10) > 8
-        // Even if they are an adult, and two adults in the age band exist their is a 40% chance to add them anyway
-        const agePasses = ageBracketOpen || getRandomInt(1, 10) > 6
-
-        return (
-          racePasses &&
-          agePasses &&
-          (externalInstance?.members === undefined ||
-            externalInstance.size > externalInstance.members.length)
-        )
-      },
-      // TODO: Need to define the other half of this bidirectional relationship better, but I need sleep so doing it tomorrow.
-      externalProp: "members",
-    },
+    externalType: "family", // The type of the instance to link
+    externalProp: "members", // The property to assign the persons id into
+    filter: personToFamilyFilter,
   },
   // status: {
   //   method: ([familyStatus]) => {"TODO: " + familyStatus},

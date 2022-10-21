@@ -1,117 +1,142 @@
-const { getRandomValue } = require("../Static/functions")
+const { getRandomValue } = require("../Static/functions.js")
+const { propTypes } = require("../Static/constants.js")
 const { getNewId } = require("./ids")
 const {
   getTypeInstances,
+  getTypeInstance,
   addTypeInstance,
   updateInstance,
 } = require("./typeRegistry")
 
-// Takes in the type definition from the config manifest and spits out a full set of instances
-function generateType(configName, typeConfig) {
-  const configPath = `../Configs/${configName}`
+/**
+ * Builds the initial empty types
+ */
+function initType(typeConfig) {
   const { type, instanceCount } = typeConfig
-  console.log(`Generating type ${type}`)
+  console.log(`Initing type ${type}`)
 
-  // Only the type should be exported, so we can safely grab the 0 entry
-  const specification = Object.values(require(`${configPath}/Types/${type}`))[0]
-  const props = Object.keys(specification)
-
-  // TODO subtract any existing instances from the instance count
   for (let i = 0; i < instanceCount; i++) {
-    createInstance(
-      specification,
-      {
-        _id: getNewId(type),
-      },
-      props,
-      type,
-      configPath
-    )
+    addTypeInstance(type, {
+      _id: getNewId(type),
+    })
   }
 }
 
-function getExternalInstance(
+/**
+ * Either add the src to an existing external dependency or get a new dependency add at it to the new one
+ */
+function getExternalDependency(
+  srcType,
   srcId,
+  srcDependencyValues,
   dependencies,
-  externalDependency,
+  propSpec,
   configPath
 ) {
-  const { type, filter, externalProp } = externalDependency
-  const instances = filter
-    ? getTypeInstances(type).filter((instance) =>
-        filter(dependencies, instance)
-      )
-    : getTypeInstances(type)
+  const { filter, externalType, externalProp } = propSpec
+  const externalSpec = Object.values(
+    require(`${configPath}/Types/${externalType}`)
+  )[0]
+  const externalPropSpec = externalSpec[externalProp]
+  const externalInstances = getTypeInstances(externalType).filter(
+    (instance) => {
+      const currentSize = instance[externalProp]?.length ?? 0
+      const maxSize =
+        externalPropSpec.size instanceof Function
+          ? externalPropSpec.size()
+          : externalPropSpec.size
 
-  if (instances.length > 0) {
-    // Since we can have N to 1 relationships we have to randomize which external type gets assigned
-    // IE if we have 10 families, because we built our families first, and we always pick the first available family
-    // it will favor families that are full, or empty
-    const instance = getRandomValue(instances)
-    updateInstance(type, {
-      ...instance,
-      [externalProp]: [...instance[externalProp], srcId],
-    })
-
-    return instance
-  }
-
-  // TODO: Move this up and out of the loops,
-  // will probaly mean a scan for external dependencies before we start to require everything we need once instead of instance times
-  const specification = Object.values(require(`${configPath}/Types/${type}`))[0]
-  const props = Object.keys(specification)
-
-  // NOTE: This assumes a newly created instance passes the filter
-  // TODO: loop till the filter passes
-  const newExternal = createInstance(
-    specification,
-    {
-      _id: getNewId(type),
-      [externalProp]: [srcId],
-    },
-    props,
-    type,
-    configPath
+      return currentSize < maxSize
+    }
   )
 
-  // TODO: Switch to id
-  return newExternal
+  const extInstances = filter
+    ? externalInstances.filter((extInstance) => {
+        const refInstances = (extInstance[externalProp] || []).map((id) =>
+          getTypeInstance(srcType, id)
+        )
+
+        const refDepValues = refInstances.map((refInstance) =>
+          dependencies.map((dep) => refInstance[dep])
+        )
+
+        return filter(srcDependencyValues, refDepValues)
+      })
+    : externalInstances
+
+  if (extInstances.length) {
+    const targetInstance = getRandomValue(extInstances)
+    targetInstance[externalProp]
+      ? targetInstance[externalProp].push(srcId)
+      : (targetInstance[externalProp] = [srcId])
+    updateInstance(externalType, targetInstance)
+    return targetInstance._id
+  }
+
+  const newExternalInstance = {
+    _id: getNewId(externalType),
+    [externalProp]: [srcId],
+  }
+
+  const setProps = Object.keys(newExternalInstance)
+  const unsetProps = Object.keys(externalSpec).filter(
+    (specProp) => !setProps.includes(specProp)
+  )
+
+  addTypeInstance(externalType, newExternalInstance)
+  procInstance(
+    externalSpec,
+    newExternalInstance,
+    unsetProps,
+    configPath,
+    srcType
+  )
+
+  return newExternalInstance._id
 }
 
-// Recursive function that mutates instance untill it reaches the end then
-// returns the instance
-function createInstance(
+/**
+ * Recusrively runs through all of an instances props and attempts to populate them
+ */
+function procInstance(
   specification,
   instance,
   oldUnsetProps,
-  type,
-  configPath
+  configPath,
+  srcType
 ) {
   const newUnsetProps = [...oldUnsetProps]
 
   oldUnsetProps.forEach((prop) => {
-    const { dependencies = [], externalDependency } = specification[prop]
+    const propSpec = specification[prop]
+    const { dependencies = [], type } = propSpec
+
+    // Provided props are never self determined
+    if (type === propTypes.PROVIDED) {
+      return
+    }
 
     // If our updated list of unset props contains the prop then we fail
-    // dependenciesMet
+    // dependenciesMet and try the next prop
     const dependenciesMet = dependencies.reduce((acc, depend) => {
       return acc && !newUnsetProps.includes(depend)
     }, true)
 
-    if (dependenciesMet) {
-      // Grab the instances value for that dependency
-      const dependencyValues = dependencies.map((dep) => {
-        return instance[dep]
-      })
+    // Grab the instances value for that dependency
+    const dependencyValues = dependencies.map((dep) => {
+      return instance[dep]
+    })
 
-      // Mutates
-      if (externalDependency) {
-        instance[prop] = getExternalInstance(
+    if (dependenciesMet) {
+      if (type === propTypes.EXTERNAL) {
+        instance[prop] = getExternalDependency(
+          srcType,
           instance._id,
+          dependencyValues,
           dependencies,
-          externalDependency,
+          propSpec,
           configPath
-        )._id
+        )
       } else {
         instance[prop] = specification[prop].method(dependencyValues)
       }
@@ -123,21 +148,19 @@ function createInstance(
 
   // Infinite loop prevention
   if (newUnsetProps.length > 0 && newUnsetProps.length < oldUnsetProps.length) {
-    return createInstance(
+    return procInstance(
       specification,
       instance,
       newUnsetProps,
-      type,
-      configPath
+      configPath,
+      srcType
     )
   }
 
-  if (newUnsetProps.length > 0) {
-    console.warn("Infinite loop detected with remaining props", newUnsetProps)
-  }
-
-  addTypeInstance(type, instance)
-  return instance
+  // TODO: Consider moving out so the function serves a single purpose and is more reusable
+  updateInstance(srcType, {
+    ...instance,
+  })
 }
 
-module.exports = { generateType, createInstance }
+module.exports = { initType, procInstance }
