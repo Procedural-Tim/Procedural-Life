@@ -2,6 +2,15 @@
 
 A hobby project that aims to create an interconnected world via procedural generation and a set of configuration files. From D and D to Computer RPGs the goal is to make your world feel lived in without having to build every npc, knife, town, etc your self.
 
+# To run
+
+1. Install node
+1. Download the code from github
+1. npm install
+1. Make any changes you want to
+1. from the command line at the top of the source code execute `npm run start`
+1. Click the generate button
+
 # Notes
 
 ## Hobby Project
@@ -19,83 +28,50 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 - There is no overwrite protection, if you name two things the same thing they may stomp on each other
 - Case matters
 
-# To run
+# Roadmap
 
-1. Install node
-1. Download the code from github
-1. npm install
-1. Make any changes you want to
-1. from the command line at the top of the source code execute `npm run start`
-1. Click the generate button
+## Version 1 (Pending work)
 
-# Roadmap (Very rough)
+### The plan
 
-## Version 1
-
-- Fix lifecycle
-- Templates
-- Friends
-- Close Friends
-- Enemies
-- Spellcheck literals
-- Weighted datastores
-- Expose root manifest
+1. Family pets
+1. Typescript
+1. data tags
+1. weighted data
+1. Templates
+1. Expose root manifest
+1. Expose datastores
+1. organizations
+1. racial names
+1. racial family names
+1. Friends
+1. Close Friends
+1. Enemies
+1. Spellcheck
+1. Consider lincse change to MIT
+1. Look into publishing on steam
+1. Release!
 
 ## Version 2
 
-- Crude story module
+- Engine type support
+- Crude story engine
 - More configurable functions
 - Expose schema
-- Expose datastores
 - Expose some functions
 
 ## Version Someday
 
-- More sophisticated story generation
-- Pic generation
-- Map generation
-- Dungeon generation
-- Quests
+- Story Engine
+- Pic Engine
+- Map Engine
+- Dungeon Engine
+- Quests Engine
 - API
 - Time
 
 ## Technical TODO
 
-- Typescript
-- Cleanup data so it fits a standard
+- Instance is getting overly complicated and needs a cleanup
 - Debugger
 - Unit tests
-
-# Components
-
-## Core
-
-The engine that builds the graph of procedurally generated nodes
-
-The manifest file points to a folder in configs to use.
-
-## src/Configs
-
-A collection of different pre made configs to use to generate data, or as an example to build your own from.
-
-The manifest points to a specific file in types, note this is the FILE name not the export name.
-
-Currently this only contains a D and D friendly config.
-
-### src/Configs/<Name>/Type
-
-A configuration that defines what a thing can be. Each type should have a single exported configuration. The generator will ignore every export except the first. Properties should never start with "_". "_" is used internally for things like "\_id". It also does not support sub folders at this point.
-
-### src/Configs/<Name>/Functions
-
-Utility functions to be used internally to the config.
-
-When a function is invoked as a property of a type it is passed the dependency values in an array as the first parameter.
-
-### src/Configs/<Name>/Data
-
-Static resources, currently contains some internal functions, the plan is to remove or simplify this.
-
-## ./Generated
-
-Where it all gets put, contains a sample of the current generation. Currently uses your location in the console.
