@@ -1,8 +1,5 @@
-var _require = require("electron"),
-    shell = _require.shell;
-
-var _require2 = require("node:child_process"),
-    execSync = _require2.execSync;
+const { shell } = require("electron")
+const { execSync } = require("node:child_process")
 
 /* eslint-disable-next-line */
 
