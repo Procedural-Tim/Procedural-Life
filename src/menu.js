@@ -1,4 +1,4 @@
-const { app, Menu, BrowserWindow } = require("electron")
+const { app, Menu, BrowserWindow, nativeTheme } = require("electron")
 const path = require("path")
 
 const isMac = process.platform === "darwin"
@@ -61,6 +61,16 @@ const template = [
   {
     label: "View",
     submenu: [
+      {
+        label: "Toggle theme",
+        click: async () => {
+          if (nativeTheme.shouldUseDarkColors) {
+            nativeTheme.themeSource = "light"
+          } else {
+            nativeTheme.themeSource = "dark"
+          }
+        },
+      },
       { role: "reload" },
       { role: "forceReload" },
       { role: "toggleDevTools" },

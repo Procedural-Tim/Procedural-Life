@@ -17,20 +17,7 @@ const createWindow = () => {
 
   win.loadFile("./src/UI/Main/index.html")
 
-  ipcMain.handle("dark-mode:toggle", () => {
-    if (nativeTheme.shouldUseDarkColors) {
-      nativeTheme.themeSource = "light"
-    } else {
-      nativeTheme.themeSource = "dark"
-    }
-    return nativeTheme.shouldUseDarkColors
-  })
-
-  ipcMain.handle("dark-mode:system", () => {
-    nativeTheme.themeSource = "system"
-  })
-
-  ipcMain.handle("generation:run", async () => {
+  ipcMain.handle("build:run", async () => {
     return start()
   })
 }

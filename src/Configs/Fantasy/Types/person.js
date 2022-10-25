@@ -1,7 +1,5 @@
 const { propTypes } = require("../../../Static/constants.js")
-const {
-  getWeightedRandomValue,
-} = require("../../../Static/functions")
+const { getWeightedRandomValue } = require("../../../Static/functions")
 const {
   getSex,
   getFirstName,

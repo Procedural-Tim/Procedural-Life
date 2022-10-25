@@ -1,10 +1,9 @@
-const { contextBridge, ipcRenderer } = require("electron")
+var _require = require("electron"),
+    contextBridge = _require.contextBridge,
+    ipcRenderer = _require.ipcRenderer;
 
-contextBridge.exposeInMainWorld("darkMode", {
-  toggle: () => ipcRenderer.invoke("dark-mode:toggle"),
-  system: () => ipcRenderer.invoke("dark-mode:system"),
-})
-
-contextBridge.exposeInMainWorld("generation", {
-  generate: () => ipcRenderer.invoke("generation:run"),
-})
+contextBridge.exposeInMainWorld("build", {
+  run: function run() {
+    return ipcRenderer.invoke("build:run");
+  }
+});

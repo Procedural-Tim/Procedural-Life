@@ -34,23 +34,22 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 
 ### The plan
 
-1. Family pets
-1. Typescript
-1. data tags
-1. weighted data
-1. Templates
-1. Expose root manifest
-1. Expose datastores
-1. organizations
-1. racial names
-1. racial family names
-1. Friends
-1. Close Friends
-1. Enemies
-1. Spellcheck
-1. Consider lincse change to MIT
-1. Look into publishing on steam
-1. Release!
+- Typescript
+- data tags
+- weighted data
+- Templates
+- Expose root manifest
+- Expose datastores
+- organizations
+- racial names
+- racial family names
+- Friends
+- Close Friends
+- Enemies
+- Spellcheck
+- Consider lincse change to MIT
+- Look into publishing on steam
+- Release!
 
 ## Version 2
 
@@ -75,3 +74,7 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 - Instance is getting overly complicated and needs a cleanup
 - Debugger
 - Unit tests
+
+# Known Issues
+
+- Generate can be spammed and it generates a proc for each

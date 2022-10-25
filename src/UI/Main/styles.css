@@ -1,4 +1,12 @@
 @media (prefers-color-scheme: dark) {
+  :root {
+    --bg-sec: #00090F;
+    --bg: #042136;
+    --color-sec: #A9BAC6;
+    --color: #4E7088;
+    --trim: #214661;
+  }
+
   body {
     background: #333;
     color: white;
@@ -6,8 +14,47 @@
 }
 
 @media (prefers-color-scheme: light) {
+  :root {
+    --bg-sec: #A9BAC6;
+    --bg: #4E7088;
+    --color-sec: #042136;
+    --color: #00090F;
+    --trim: #214661;
+  }
+
   body {
     background: #ddd;
     color: black;
   }
+}
+
+:root {
+  --font-size: 16px;
+  --font-size-half: 8px;
+}
+
+body {
+  font-size: var(--font-size);
+}
+
+.tb-tabs {
+  display: flex;
+}
+
+.tb-tab {
+  border-radius: var(--font-size-half) var(--font-size-half) 0 0;
+  background: var(--bg);
+  color: var(--color);
+  border: 1px solid var(--trim);
+  padding: 4px;
+}
+
+.tb-tab.active {
+  background: var(--bg-sec);
+  color: var(--color-sec);
+}
+
+.tb-panel {
+  background: var(--bg-sec);
+  padding: 4px;
 }

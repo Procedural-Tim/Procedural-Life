@@ -8,14 +8,12 @@
       content="default-src 'self'; script-src 'self'"
     />
     <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <script src="../../../node_modules/react/umd/react.development.js"></script>
+    <script src="../../../node_modules/react-dom/umd/react-dom.development.js"></script>
     <title>Fantasy Procedural Generator</title>
   </head>
   <body>
-    <h1>Fantasy Procedural Generator</h1>
-    <button id="toggle-dark-mode">Toggle Dark Mode</button>
-    <button id="reset-to-system">Reset to System Theme</button>
-    <button id="generate">Generate</button>
-
-    <script src="renderer.js"></script>
+    <div id="react-root"></div>
+    <script src="renderer.js" type="module"></script>
   </body>
 </html>
