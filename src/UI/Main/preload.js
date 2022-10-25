@@ -1,6 +1,4 @@
-var _require = require("electron"),
-    contextBridge = _require.contextBridge,
-    ipcRenderer = _require.ipcRenderer;
+const { contextBridge, ipcRenderer } = require("electron")
 
 contextBridge.exposeInMainWorld("build", {
   run: function run() {

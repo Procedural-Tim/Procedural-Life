@@ -1,4 +1,4 @@
-import { App } from "./app.js";
+import { App } from "../Components/app.js";
 
 var domContainer = document.getElementById("react-root");
 var root = ReactDOM.createRoot(domContainer);
