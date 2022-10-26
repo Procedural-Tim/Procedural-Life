@@ -10,7 +10,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "watch:jsx": "npx babel --watch src/UI/Components --out-dir src/UI/Components --presets react-app/prod"
+    "watch:jsx": "npx babel --watch src/UI/Components --out-dir src/UI/Components --presets @babel/preset-react"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,9 @@
   },
   "homepage": "https://github.com/Procedural-Tim/Procedural-Life#readme",
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.6",
+    "@babel/preset-react": "^7.18.6",
     "@electron-forge/cli": "^6.0.0-beta.67",
     "@electron-forge/maker-deb": "^6.0.0-beta.67",
     "@electron-forge/maker-rpm": "^6.0.0-beta.67",
@@ -36,8 +39,6 @@
     "prettier": "2.7.1"
   },
   "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-react-app": "^3.1.2",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

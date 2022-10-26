@@ -1,9 +1,9 @@
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-sec: #00090F;
+    --bg-sec: #00090f;
     --bg: #042136;
-    --color-sec: #A9BAC6;
-    --color: #4E7088;
+    --color-sec: #a9bac6;
+    --color: #4e7088;
     --trim: #214661;
   }
 
@@ -15,10 +15,10 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg-sec: #A9BAC6;
-    --bg: #4E7088;
+    --bg-sec: #a9bac6;
+    --bg: #4e7088;
     --color-sec: #042136;
-    --color: #00090F;
+    --color: #00090f;
     --trim: #214661;
   }
 

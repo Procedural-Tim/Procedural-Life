@@ -5,13 +5,15 @@ const { execSync } = require("node:child_process")
 
 document.getElementById("close-button").addEventListener("click", function () {
   /* eslint-disable-next-line */
-  window.close();
-});
+  window.close()
+})
 
 /* eslint-disable-next-line */
 document.getElementById("git-link").addEventListener("click", function () {
-  shell.openExternal("https://github.com/Procedural-Tim/Procedural-Life");
-});
+  shell.openExternal("https://github.com/Procedural-Tim/Procedural-Life")
+})
 
 /* eslint-disable-next-line */
-document.getElementById("git-sha").innerText = execSync("git rev-parse HEAD").toString().slice(0, 7);
+document.getElementById("git-sha").innerText = execSync("git rev-parse HEAD")
+  .toString()
+  .slice(0, 7)

@@ -1,4 +1,6 @@
+const fs = require("fs")
 const path = require("path")
+const { readdir } = require("fs/promises")
 const { app, BrowserWindow, ipcMain, nativeTheme } = require("electron")
 const { setCustomMenu } = require("./menu")
 const { start } = require("./Core/generate")
@@ -19,6 +21,12 @@ const createWindow = () => {
 
   ipcMain.handle("build:run", async () => {
     return start()
+  })
+
+  ipcMain.handle("view:builds", async () => {
+    const dir = path.join(process.cwd(), "/Generated")
+
+    return fs.existsSync(dir) ? readdir(dir) : new Promise(() => [])
   })
 }
 
