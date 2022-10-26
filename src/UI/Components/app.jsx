@@ -1,4 +1,4 @@
-import { TabBox } from "../Components/TabBox.js"
+import { TabBox } from "../Components/tabBox.js"
 
 function App() {
   return (

@@ -89,7 +89,7 @@ function getExternalDependency(
     newExternalInstance,
     unsetProps,
     configPath,
-    srcType
+    externalType
   )
 
   return newExternalInstance._id

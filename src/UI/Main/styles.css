@@ -37,6 +37,43 @@ body {
   font-size: var(--font-size);
 }
 
+.facet,
+button {
+  background: var(--bg-sec);
+  color: var(--color-sec);
+  border: 1px solid var(--trim);
+  border-radius: var(--font-size-half);
+  padding: 4px;
+}
+
+.facet:active,
+button:active {
+  background: var(--bg);
+  color: var(--color);
+}
+
+.facet {
+  display: inline-block;
+}
+
+.section {
+  border: 1px solid var(--trim);
+  padding: 4px;
+  margin: 4px;
+}
+
+.section-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px;
+  overflow: auto;
+}
+
+.instance-list {
+  flex-direction: column;
+}
+
 .tb-tabs {
   display: flex;
 }
