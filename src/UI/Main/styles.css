@@ -1,12 +1,20 @@
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-sec: #00090f;
-    --bg: #042136;
-    --color-sec: #a9bac6;
-    --color: #4e7088;
-    --trim: #214661;
-  }
+:root {
+  --bg-1: #00090f;
+  --bg-2: #042136;
+  --bg-3: #214661;
+  --bg-4: #4e7088;
+  --bg-5: #a9bac6;
+  --color-1: #e4e4e4;
+  --color-2: #c8c8c8;
+  --color-3: #acacac;
+  --color-4: #919191;
+  --color-5: #757575;
+  --trim: #ffd700;
+  --font-size: 16px;
+  --font-size-half: 8px;
+}
 
+@media (prefers-color-scheme: dark) {
   body {
     background: #333;
     color: white;
@@ -14,46 +22,44 @@
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    --bg-sec: #a9bac6;
-    --bg: #4e7088;
-    --color-sec: #042136;
-    --color: #00090f;
-    --trim: #214661;
-  }
-
   body {
     background: #ddd;
-    color: black;
+    color: white;
   }
-}
-
-:root {
-  --font-size: 16px;
-  --font-size-half: 8px;
 }
 
 body {
   font-size: var(--font-size);
 }
 
-.facet,
+.filter,
 button {
-  background: var(--bg-sec);
-  color: var(--color-sec);
+  background: var(--bg-3);
+  color: var(--color-3);
   border: 1px solid var(--trim);
   border-radius: var(--font-size-half);
   padding: 4px;
 }
 
-.facet:active,
+.filter:active,
 button:active {
-  background: var(--bg);
-  color: var(--color);
+  background: var(--bg-4);
+  color: var(--color-4);
 }
 
-.facet {
-  display: inline-block;
+.filter {
+  height: 20px;
+}
+
+.filter.filter-open {
+  height: auto;
+}
+
+.facets {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin: 4px 0;
 }
 
 .section {
@@ -80,18 +86,18 @@ button:active {
 
 .tb-tab {
   border-radius: var(--font-size-half) var(--font-size-half) 0 0;
-  background: var(--bg);
-  color: var(--color);
+  background: var(--bg-2);
+  color: var(--color-2);
   border: 1px solid var(--trim);
   padding: 4px;
 }
 
 .tb-tab.active {
-  background: var(--bg-sec);
-  color: var(--color-sec);
+  background: var(--bg-1);
+  color: var(--color-1);
 }
 
 .tb-panel {
-  background: var(--bg-sec);
+  background: var(--bg-1);
   padding: 4px;
 }

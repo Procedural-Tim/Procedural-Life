@@ -74,6 +74,7 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 - Instance is getting overly complicated and needs a cleanup
 - Debugger
 - Unit tests
+- Better theme
 
 # Known Issues
 

@@ -10,7 +10,7 @@ setCustomMenu()
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 800,
     webPreferences: {
       preload: path.join(__dirname, "./UI/Main/preload.js"),
     },
@@ -26,20 +26,26 @@ const createWindow = () => {
   ipcMain.handle("view:builds", async () => {
     const dir = path.join(process.cwd(), "/Generated")
 
-    return fs.existsSync(dir) ? readdir(dir).catch(console.warn) : new Promise(() => [])
+    return fs.existsSync(dir)
+      ? readdir(dir).catch(console.warn)
+      : new Promise(() => [])
   })
 
   ipcMain.handle("view:build", async (evt, buildName) => {
     const dir = path.join(process.cwd(), `/Generated/${buildName}`)
 
-    return fs.existsSync(dir) ? readdir(dir).catch(console.warn) : new Promise(() => [])
+    return fs.existsSync(dir)
+      ? readdir(dir).catch(console.warn)
+      : new Promise(() => [])
   })
 
   ipcMain.handle("view:file", async (evt, buildName, fileName) => {
     const file = path.join(process.cwd(), `/Generated/${buildName}/${fileName}`)
 
     return fs.existsSync(file)
-      ? readFile(file).then((res) => JSON.parse(res)).catch(console.warn)
+      ? readFile(file)
+          .then((res) => JSON.parse(res))
+          .catch(console.warn)
       : new Promise(() => {})
   })
 }

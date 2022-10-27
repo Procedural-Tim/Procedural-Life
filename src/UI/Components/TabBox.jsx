@@ -10,6 +10,25 @@ function TabBox() {
   const [buildFiles, setBuildFiles] = React.useState([])
   const [fileName, setFileName] = React.useState()
   const [file, setFile] = React.useState()
+  const [filters, setFilters] = React.useState([])
+
+  const addFilter = (newFilter) => {
+    console.log(filters)
+    setFilters([...filters, newFilter])
+  }
+
+  const removeFilter = (filter) => {
+    const newFilters = [...filters]
+
+    const filterIndex = newFilters.findIndex((f) => {
+      return f.attr === filter.attr && f.value === filter.value
+    })
+
+    if (filterIndex > -1) {
+      newFilters.splice(filterIndex, 1)
+      setFilters(newFilters)
+    }
+  }
 
   React.useEffect(() => {
     async function fetchData() {
@@ -42,6 +61,21 @@ function TabBox() {
     setBuilds(serverBuilds)
   }
 
+  const filteredInstances = file ? file.filter(inst => {
+    const groupedFilters = filters.reduce((acc, filter) => {
+      if (!acc[filter.attr]) {
+        acc[filter.attr] = []
+      }
+
+      acc[filter.attr].push(filter.value)
+      return acc
+    }, {})
+
+    return Object.entries(groupedFilters).reduce((acc, [attr, values]) => {
+      return acc && values.some(value => value === inst[attr])
+    }, true)
+  }) : [];
+
   return (
     <div>
       <div className="tb-tabs">
@@ -69,6 +103,7 @@ function TabBox() {
                   setBuildFiles(await window.view.build(build))
                   setFileName()
                   setFile()
+                  setFilters([])
                 }
                 return (
                   <button key={build} onClick={getBuild}>
@@ -83,6 +118,7 @@ function TabBox() {
                 const getFile = async () => {
                   setFileName(fileName)
                   setFile(await window.view.file(build, fileName))
+                  setFilters([])
                 }
 
                 return (
@@ -92,8 +128,12 @@ function TabBox() {
                 )
               })}
             </Section>
-            <Filters file={file} />
-            <InstanceList instances={file} fileName={fileName} />
+            <Filters
+              file={file}
+              addFilter={addFilter}
+              removeFilter={removeFilter}
+            />
+            <InstanceList instances={filteredInstances} fileName={fileName} />
           </div>
         )}
       </div>
