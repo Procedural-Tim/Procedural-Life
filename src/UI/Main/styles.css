@@ -55,11 +55,19 @@ button:active {
   height: auto;
 }
 
+.filter-active {
+  background: green;
+}
+
 .facets {
   display: flex;
   gap: 4px;
   flex-wrap: wrap;
   margin: 4px 0;
+}
+
+.facet-active {
+  background: green;
 }
 
 .section {

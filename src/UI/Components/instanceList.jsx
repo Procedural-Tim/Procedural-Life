@@ -14,6 +14,8 @@ function InstanceList(props) {
     })
     .map(([key]) => key)
 
+  const openInstance()
+
   return (
     <Section heading={heading}>
       <table>
@@ -27,7 +29,7 @@ function InstanceList(props) {
         <tbody>
           {instances.map((instance) => {
             return (
-              <tr key={instance._id}>
+              <tr key={instance._id} onClick={}>
                 {attributes.map((attr) => (
                   <td key={`${instance._id}-${attr}`}>{instance[attr]}</td>
                 ))}

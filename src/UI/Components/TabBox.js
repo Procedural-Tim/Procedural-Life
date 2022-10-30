@@ -11,7 +11,6 @@ function TabBox() {
   const [file, setFile] = React.useState();
   const [filters, setFilters] = React.useState([]);
   const addFilter = newFilter => {
-    console.log(filters);
     setFilters([...filters, newFilter]);
   };
   const removeFilter = filter => {
@@ -98,9 +97,10 @@ function TabBox() {
       onClick: getFile
     }, name);
   })), /*#__PURE__*/React.createElement(Filters, {
-    file: file,
+    data: file,
     addFilter: addFilter,
-    removeFilter: removeFilter
+    removeFilter: removeFilter,
+    filters: filters
   }), /*#__PURE__*/React.createElement(InstanceList, {
     instances: filteredInstances,
     fileName: fileName

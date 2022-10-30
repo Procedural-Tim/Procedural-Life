@@ -13,7 +13,6 @@ function TabBox() {
   const [filters, setFilters] = React.useState([])
 
   const addFilter = (newFilter) => {
-    console.log(filters)
     setFilters([...filters, newFilter])
   }
 
@@ -61,20 +60,22 @@ function TabBox() {
     setBuilds(serverBuilds)
   }
 
-  const filteredInstances = file ? file.filter(inst => {
-    const groupedFilters = filters.reduce((acc, filter) => {
-      if (!acc[filter.attr]) {
-        acc[filter.attr] = []
-      }
+  const filteredInstances = file
+    ? file.filter((inst) => {
+        const groupedFilters = filters.reduce((acc, filter) => {
+          if (!acc[filter.attr]) {
+            acc[filter.attr] = []
+          }
 
-      acc[filter.attr].push(filter.value)
-      return acc
-    }, {})
+          acc[filter.attr].push(filter.value)
+          return acc
+        }, {})
 
-    return Object.entries(groupedFilters).reduce((acc, [attr, values]) => {
-      return acc && values.some(value => value === inst[attr])
-    }, true)
-  }) : [];
+        return Object.entries(groupedFilters).reduce((acc, [attr, values]) => {
+          return acc && values.some((value) => value === inst[attr])
+        }, true)
+      })
+    : []
 
   return (
     <div>
@@ -129,9 +130,10 @@ function TabBox() {
               })}
             </Section>
             <Filters
-              file={file}
+              data={file}
               addFilter={addFilter}
               removeFilter={removeFilter}
+              filters={filters}
             />
             <InstanceList instances={filteredInstances} fileName={fileName} />
           </div>

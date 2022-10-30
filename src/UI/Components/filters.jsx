@@ -1,13 +1,10 @@
 import { Section } from "./section.js"
 
 function Filter(props) {
-  const { name, values, addFilter } = props
+  console.log("FILTER")
+  const { name, values, addFilter, removeFilter, filters } = props
   const [isOpen, setIsOpen] = React.useState(false)
   const toggleOpen = () => setIsOpen(!isOpen)
-  const filterClasses = ["filter"]
-  if (isOpen) {
-    filterClasses.push("filter-open")
-  }
 
   const addPositiveFilter = (value) => {
     addFilter({
@@ -17,16 +14,53 @@ function Filter(props) {
     })
   }
 
+  const remFilter = (value) => {
+    removeFilter({
+      attr: name,
+      value,
+    })
+  }
+
+  const filterIsActive = Object.entries(values).some(([value, count]) => {
+    return filters.some((filter) => {
+      return filter.attr === name && filter.value === value
+    })
+  })
+
+  const filterClasses = ["filter"]
+  if (isOpen) {
+    filterClasses.push("filter-open")
+  }
+  if (filterIsActive) {
+    filterClasses.push("filter-active")
+  }
+
   return (
     <div className={filterClasses.join(" ")} key={name} onClick={toggleOpen}>
       <div>{name}</div>
       <div className="facets">
         {isOpen &&
           Object.entries(values).map(([value, count]) => {
-            const onClick = () => addPositiveFilter(value)
+            const isActive = filters.some((filter) => {
+              return filter.attr === name && filter.value === value
+            })
+
+            const facetClasses = []
+            if (isActive) {
+              facetClasses.push("facet-active")
+            }
+
+            const onClick = (evt) => {
+              evt.stopPropagation()
+              isActive ? remFilter(value) : addPositiveFilter(value)
+            }
 
             return (
-              <button key={value} onClick={onClick}>
+              <button
+                key={value}
+                onClick={onClick}
+                className={facetClasses.join(" ")}
+              >
                 {value} ({count})
               </button>
             )
@@ -37,10 +71,10 @@ function Filter(props) {
 }
 
 function Filters(props) {
-  const { file = [{}], addFilter, removeFilter } = props
+  const { data = [{}], addFilter, removeFilter, filters } = props
 
   // Loop through all instances, extracting out each attribute, each attributes possibly values, and how many times said value occures
-  const attributes = file.reduce((acc, inst) => {
+  const attributes = data.reduce((acc, inst) => {
     Object.entries(inst).forEach(([attr, value]) => {
       if (typeof value === "object") {
         return acc
@@ -69,6 +103,7 @@ function Filters(props) {
           key={name}
           addFilter={addFilter}
           removeFilter={removeFilter}
+          filters={filters}
         />
       ))}
     </Section>
