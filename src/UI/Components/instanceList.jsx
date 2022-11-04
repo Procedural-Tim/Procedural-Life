@@ -1,7 +1,7 @@
 import { Section } from "./section.js"
 
 function InstanceList(props) {
-  const { instances, fileName } = props
+  const { instances, fileName, setInstance } = props
   const heading = fileName && `${fileName.split(".json")[0]}s`
 
   if (!instances || !instances.length) {
@@ -14,7 +14,9 @@ function InstanceList(props) {
     })
     .map(([key]) => key)
 
-  const openInstance()
+  const openInstance = () => {
+    console.log("open instance")
+  }
 
   return (
     <Section heading={heading}>
@@ -28,8 +30,12 @@ function InstanceList(props) {
         </thead>
         <tbody>
           {instances.map((instance) => {
+            const onClick = () => {
+              setInstance(instance._id)
+            }
+
             return (
-              <tr key={instance._id} onClick={}>
+              <tr key={instance._id} onClick={onClick}>
                 {attributes.map((attr) => (
                   <td key={`${instance._id}-${attr}`}>{instance[attr]}</td>
                 ))}

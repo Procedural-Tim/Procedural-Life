@@ -1,6 +1,5 @@
 import { Section } from "./section.js";
 function Filter(props) {
-  console.log("FILTER");
   const {
     name,
     values,

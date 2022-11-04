@@ -1,7 +1,6 @@
 import { Section } from "./section.js"
 
 function Filter(props) {
-  console.log("FILTER")
   const { name, values, addFilter, removeFilter, filters } = props
   const [isOpen, setIsOpen] = React.useState(false)
   const toggleOpen = () => setIsOpen(!isOpen)
