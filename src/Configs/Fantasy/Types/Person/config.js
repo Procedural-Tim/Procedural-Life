@@ -1,5 +1,5 @@
-const { propTypes } = require("../../../Static/constants.js")
-const { getWeightedRandomValue } = require("../../../Static/functions")
+const { propTypes } = require("../../../../Static/constants.js")
+const { getWeightedRandomValue } = require("../../../../Static/functions")
 const {
   getSex,
   getFirstName,
@@ -13,10 +13,10 @@ const {
   adjWis,
   adjInt,
   getTraits,
-} = require("../Functions/functions")
-const { personToFamilyFilter } = require("../Relationships/personFamily")
+} = require("../../Functions/functions")
+const { personToFamilyFilter } = require("../../Relationships/personFamily")
 
-const { roll3D6 } = require("../Functions/dice")
+const { roll3D6 } = require("../../Functions/dice")
 
 // Our first type, it is meant to represent an npc
 const person = {
@@ -36,7 +36,7 @@ const person = {
     // There is no method, instead the ids of each instance are assigned to the opposing instances prop
     type: propTypes.EXTERNAL,
     dependencies: ["age", "race"],
-    externalType: "family", // The type of the instance to link
+    externalType: "Family", // NOTE: CASE MATTERS, The type of the instance to link
     externalProp: "members", // The property to assign the persons id into
     filter: personToFamilyFilter,
   },

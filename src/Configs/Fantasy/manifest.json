@@ -1,11 +1,11 @@
 {
   "types": [
     {
-      "type": "person",
+      "type": "Person",
       "instanceCount": 20
     },
     {
-      "type": "family",
+      "type": "Family",
       "instanceCount": 2
     }
   ]

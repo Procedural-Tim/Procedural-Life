@@ -13,7 +13,7 @@ contextBridge.exposeInMainWorld("view", {
   build: function build(buildName) {
     return ipcRenderer.invoke("view:build", buildName)
   },
-  file: function file(buildName, fileName) {
-    return ipcRenderer.invoke("view:file", buildName, fileName)
+  instances: function file(buildName, type) {
+    return ipcRenderer.invoke("view:instances", buildName, type)
   },
 })

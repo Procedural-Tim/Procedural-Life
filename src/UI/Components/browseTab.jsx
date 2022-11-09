@@ -69,7 +69,7 @@ export function BrowseTab(props) {
             const name = fileName.split(".json")[0]
             const getFile = async () => {
               setFileName(fileName)
-              setFile(await window.view.file(build, fileName))
+              setFile(await window.view.instances(build, fileName))
               setFilters([])
             }
 

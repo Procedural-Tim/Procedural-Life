@@ -1,7 +1,7 @@
-const { getRandomInt } = require("../../../Static/functions")
-const { getStatus, getWealth } = require("../Functions/family")
-const { getLastName } = require("../Functions/functions")
-const { propTypes } = require("../../../Static/constants.js")
+const { getRandomInt } = require("../../../../Static/functions")
+const { getStatus, getWealth } = require("../../Functions/family")
+const { getLastName } = require("../../Functions/functions")
+const { propTypes } = require("../../../../Static/constants.js")
 
 const family = {
   status: {

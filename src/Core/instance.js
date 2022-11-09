@@ -35,7 +35,7 @@ function getExternalDependency(
 ) {
   const { filter, externalType, externalProp } = propSpec
   const externalSpec = Object.values(
-    require(`${configPath}/Types/${externalType}`)
+    require(`${configPath}/Types/${externalType}/config.js`)
   )[0]
   const externalPropSpec = externalSpec[externalProp]
   const externalInstances = getTypeInstances(externalType).filter(

@@ -75,6 +75,7 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 - Debugger
 - Unit tests
 - Better theme
+- Fix the folder structure so the build and configs more closely match each other
 
 # Known Issues
 

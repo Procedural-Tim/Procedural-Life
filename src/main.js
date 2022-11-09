@@ -39,8 +39,11 @@ const createWindow = () => {
       : new Promise(() => [])
   })
 
-  ipcMain.handle("view:file", async (evt, buildName, fileName) => {
-    const file = path.join(process.cwd(), `/Generated/${buildName}/${fileName}`)
+  ipcMain.handle("view:instances", async (evt, buildName, type) => {
+    const file = path.join(
+      process.cwd(),
+      `/Generated/${buildName}/${type}/instances.json`
+    )
 
     return fs.existsSync(file)
       ? readFile(file)
