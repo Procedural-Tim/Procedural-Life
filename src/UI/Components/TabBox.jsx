@@ -1,10 +1,23 @@
 import { Build } from "./build.js"
-import { BrowseTab } from "./browseTab.js"
+import { BrowseTab } from "./Browse/browseTab.js"
 import { ViewTab } from "./viewTab.js"
 
 function TabBox() {
   const [activeTab, setActiveTab] = React.useState(0)
+  // All the generated builds
   const [builds, setBuilds] = React.useState([])
+  // The selected build
+  const [build, setBuild] = React.useState()
+  // List of all types
+  const [typeFolders, setTypeFolders] = React.useState([])
+  // The selected type
+  const [typeName, setTypeName] = React.useState()
+  // Filters applied to the instances
+  const [filters, setFilters] = React.useState([])
+  // All the instances for type
+  const [instances, setInstances] = React.useState()
+
+  // The selected instance
   const [instance, setInstance] = React.useState()
 
   React.useEffect(() => {
@@ -52,7 +65,20 @@ function TabBox() {
       <div className="tb-panel">
         {activeTab === 0 && <Build setBuilds={setBuilds} />}
         {activeTab === 1 && (
-          <BrowseTab builds={builds} setInstance={setInstance} />
+          <BrowseTab
+            builds={builds}
+            build={build}
+            setBuild={setBuild}
+            setInstance={setInstance}
+            typeFolders={typeFolders}
+            setTypeFolders={setTypeFolders}
+            typeName={typeName}
+            setTypeName={setTypeName}
+            instances={instances}
+            setInstances={setInstances}
+            filters={filters}
+            setFilters={setFilters}
+          />
         )}
         {activeTab === 2 && <ViewTab instance={instance} />}
       </div>

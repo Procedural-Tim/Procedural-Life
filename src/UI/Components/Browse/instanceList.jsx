@@ -1,8 +1,8 @@
-import { Section } from "./section.js"
+import { Section } from "../section.js"
 
 function InstanceList(props) {
-  const { instances, fileName, setInstance } = props
-  const heading = fileName && `${fileName.split(".json")[0]}s`
+  const { instances, typeName, setInstance } = props
+  const heading = typeName && `${typeName}s`
 
   if (!instances || !instances.length) {
     return <Section heading={heading} />

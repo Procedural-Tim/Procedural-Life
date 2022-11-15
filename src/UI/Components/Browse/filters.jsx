@@ -1,4 +1,4 @@
-import { Section } from "./section.js"
+import { Section } from "../section.js"
 
 function Filter(props) {
   const { name, values, addFilter, removeFilter, filters } = props

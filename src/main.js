@@ -45,6 +45,8 @@ const createWindow = () => {
       `/Generated/${buildName}/${type}/instances.json`
     )
 
+    console.log(file)
+
     return fs.existsSync(file)
       ? readFile(file)
           .then((res) => JSON.parse(res))

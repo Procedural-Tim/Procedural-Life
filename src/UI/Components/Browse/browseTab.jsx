@@ -1,16 +1,23 @@
-import { Section } from "./section.js"
 import { Packages } from "./packages.js"
+import { TypeList } from "./typeList.js"
 import { Filters } from "./filters.js"
 import { InstanceList } from "./instanceList.js"
 
 export function BrowseTab(props) {
-  const { builds, setInstance } = props
-
-  const [buildFiles, setBuildFiles] = React.useState([])
-  const [build, setBuild] = React.useState()
-  const [fileName, setFileName] = React.useState()
-  const [file, setFile] = React.useState()
-  const [filters, setFilters] = React.useState([])
+  const {
+    builds,
+    build,
+    setBuild,
+    setInstance,
+    typeFolders,
+    setTypeFolders,
+    typeName,
+    setTypeName,
+    instances,
+    setInstances,
+    filters,
+    setFilters,
+  } = props
 
   const addFilter = (newFilter) => {
     setFilters([...filters, newFilter])
@@ -29,8 +36,8 @@ export function BrowseTab(props) {
     }
   }
 
-  const filteredInstances = file
-    ? file.filter((inst) => {
+  const filteredInstances = instances
+    ? instances.filter((inst) => {
         // When you have multiple filters on the same attribute
         const groupedFilters = filters.reduce((acc, filter) => {
           if (!acc[filter.attr]) {
@@ -59,36 +66,27 @@ export function BrowseTab(props) {
         <Packages
           builds={builds}
           setBuild={setBuild}
-          setBuildFiles={setBuildFiles}
-          setFileName={setFileName}
-          setFile={setFile}
+          setTypeFolders={setTypeFolders}
+          setTypeName={setTypeName}
+          setInstances={setInstances}
           setFilters={setFilters}
         />
-        <Section heading="Types">
-          {buildFiles.map((fileName) => {
-            const name = fileName.split(".json")[0]
-            const getFile = async () => {
-              setFileName(fileName)
-              setFile(await window.view.instances(build, fileName))
-              setFilters([])
-            }
-
-            return (
-              <button key={name} onClick={getFile}>
-                {name}
-              </button>
-            )
-          })}
-        </Section>
+        <TypeList
+          typeFolders={typeFolders}
+          setTypeName={setTypeName}
+          setInstances={setInstances}
+          build={build}
+          setFilters={setFilters}
+        />
         <Filters
-          data={file}
+          data={instances}
           addFilter={addFilter}
           removeFilter={removeFilter}
           filters={filters}
         />
         <InstanceList
           instances={filteredInstances}
-          fileName={fileName}
+          typeName={typeName}
           setInstance={setInstance}
         />
       </div>
