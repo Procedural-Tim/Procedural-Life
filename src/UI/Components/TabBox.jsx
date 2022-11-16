@@ -16,7 +16,6 @@ function TabBox() {
   const [filters, setFilters] = React.useState([])
   // All the instances for type
   const [instances, setInstances] = React.useState()
-
   // The selected instance
   const [instance, setInstance] = React.useState()
 
@@ -41,12 +40,17 @@ function TabBox() {
     setActiveTab(0)
   }
 
-  const setViewActive = () => {
+  const setBrowseActive = () => {
     setActiveTab(1)
   }
 
-  const setInstanceActive = () => {
+  const setViewActive = () => {
     setActiveTab(2)
+  }
+
+  const goToInstance = (instance) => {
+    setInstance(instance)
+    setViewActive()
   }
 
   return (
@@ -55,10 +59,10 @@ function TabBox() {
         <div className={buildTabClasses} onClick={setBuildActive}>
           Build
         </div>
-        <div className={viewTabClasses} onClick={setViewActive}>
+        <div className={viewTabClasses} onClick={setBrowseActive}>
           Browse
         </div>
-        <div className={viewInstanceClasses} onClick={setInstanceActive}>
+        <div className={viewInstanceClasses} onClick={setViewActive}>
           View
         </div>
       </div>
@@ -69,7 +73,6 @@ function TabBox() {
             builds={builds}
             build={build}
             setBuild={setBuild}
-            setInstance={setInstance}
             typeFolders={typeFolders}
             setTypeFolders={setTypeFolders}
             typeName={typeName}
@@ -78,9 +81,12 @@ function TabBox() {
             setInstances={setInstances}
             filters={filters}
             setFilters={setFilters}
+            goToInstance={goToInstance}
           />
         )}
-        {activeTab === 2 && <ViewTab instance={instance} />}
+        {activeTab === 2 && (
+          <ViewTab instance={instance} typeName={typeName} build={build} />
+        )}
       </div>
     </div>
   )

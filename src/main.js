@@ -1,7 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const { readdir, readFile } = require("fs/promises")
-const { app, BrowserWindow, ipcMain, nativeTheme } = require("electron")
+const { app, BrowserWindow, ipcMain } = require("electron")
 const { setCustomMenu } = require("./menu")
 const { start } = require("./Core/generate")
 
@@ -45,13 +45,23 @@ const createWindow = () => {
       `/Generated/${buildName}/${type}/instances.json`
     )
 
-    console.log(file)
-
     return fs.existsSync(file)
       ? readFile(file)
           .then((res) => JSON.parse(res))
           .catch(console.warn)
-      : new Promise(() => {})
+      : Promise.reject(new Error("File does not exist"))
+  })
+
+  ipcMain.handle("typeMeta:template", async (evt, buildName, type) => {
+    const filePath = path.join(
+      process.cwd(),
+      `/Generated/${buildName}/${type}/template.js`
+    )
+
+    const { TestIt } = require(filePath)
+    console.log(TestIt)
+    console.log(JSON.stringify({ TestIt }))
+    return JSON.stringify({ TestIt })
   })
 }
 

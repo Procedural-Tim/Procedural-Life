@@ -73,6 +73,7 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 
 - Instance is getting overly complicated and needs a cleanup
 - Debugger
+- Move most to dynamic imports instead of the complexity of node to fe
 - Unit tests
 - Better theme
 - Fix the folder structure so the build and configs more closely match each other

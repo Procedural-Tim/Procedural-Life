@@ -3,7 +3,7 @@ function InstanceList(props) {
   const {
     instances,
     typeName,
-    setInstance
+    goToInstance
   } = props;
   const heading = typeName && `${typeName}s`;
   if (!instances || !instances.length) {
@@ -14,9 +14,6 @@ function InstanceList(props) {
   const attributes = Object.entries(instances[0]).filter(([key, value]) => {
     return typeof value !== "object";
   }).map(([key]) => key);
-  const openInstance = () => {
-    console.log("open instance");
-  };
   return /*#__PURE__*/React.createElement(Section, {
     heading: heading
   }, /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", {
@@ -25,7 +22,7 @@ function InstanceList(props) {
     key: attr
   }, attr)))), /*#__PURE__*/React.createElement("tbody", null, instances.map(instance => {
     const onClick = () => {
-      setInstance(instance._id);
+      goToInstance(instance);
     };
     return /*#__PURE__*/React.createElement("tr", {
       key: instance._id,

@@ -8,7 +8,6 @@ export function BrowseTab(props) {
     builds,
     build,
     setBuild,
-    setInstance,
     typeFolders,
     setTypeFolders,
     typeName,
@@ -17,6 +16,7 @@ export function BrowseTab(props) {
     setInstances,
     filters,
     setFilters,
+    goToInstance,
   } = props
 
   const addFilter = (newFilter) => {
@@ -87,7 +87,7 @@ export function BrowseTab(props) {
         <InstanceList
           instances={filteredInstances}
           typeName={typeName}
-          setInstance={setInstance}
+          goToInstance={goToInstance}
         />
       </div>
     </>

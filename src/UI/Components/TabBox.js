@@ -15,7 +15,6 @@ function TabBox() {
   const [filters, setFilters] = React.useState([]);
   // All the instances for type
   const [instances, setInstances] = React.useState();
-
   // The selected instance
   const [instance, setInstance] = React.useState();
   React.useEffect(() => {
@@ -30,11 +29,15 @@ function TabBox() {
   const setBuildActive = () => {
     setActiveTab(0);
   };
-  const setViewActive = () => {
+  const setBrowseActive = () => {
     setActiveTab(1);
   };
-  const setInstanceActive = () => {
+  const setViewActive = () => {
     setActiveTab(2);
+  };
+  const goToInstance = instance => {
+    setInstance(instance);
+    setViewActive();
   };
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "tb-tabs"
@@ -43,10 +46,10 @@ function TabBox() {
     onClick: setBuildActive
   }, "Build"), /*#__PURE__*/React.createElement("div", {
     className: viewTabClasses,
-    onClick: setViewActive
+    onClick: setBrowseActive
   }, "Browse"), /*#__PURE__*/React.createElement("div", {
     className: viewInstanceClasses,
-    onClick: setInstanceActive
+    onClick: setViewActive
   }, "View")), /*#__PURE__*/React.createElement("div", {
     className: "tb-panel"
   }, activeTab === 0 && /*#__PURE__*/React.createElement(Build, {
@@ -55,7 +58,6 @@ function TabBox() {
     builds: builds,
     build: build,
     setBuild: setBuild,
-    setInstance: setInstance,
     typeFolders: typeFolders,
     setTypeFolders: setTypeFolders,
     typeName: typeName,
@@ -63,9 +65,12 @@ function TabBox() {
     instances: instances,
     setInstances: setInstances,
     filters: filters,
-    setFilters: setFilters
+    setFilters: setFilters,
+    goToInstance: goToInstance
   }), activeTab === 2 && /*#__PURE__*/React.createElement(ViewTab, {
-    instance: instance
+    instance: instance,
+    typeName: typeName,
+    build: build
   })));
 }
 export { TabBox };

@@ -1,7 +1,7 @@
 import { Section } from "../section.js"
 
 function InstanceList(props) {
-  const { instances, typeName, setInstance } = props
+  const { instances, typeName, goToInstance } = props
   const heading = typeName && `${typeName}s`
 
   if (!instances || !instances.length) {
@@ -13,10 +13,6 @@ function InstanceList(props) {
       return typeof value !== "object"
     })
     .map(([key]) => key)
-
-  const openInstance = () => {
-    console.log("open instance")
-  }
 
   return (
     <Section heading={heading}>
@@ -31,7 +27,7 @@ function InstanceList(props) {
         <tbody>
           {instances.map((instance) => {
             const onClick = () => {
-              setInstance(instance._id)
+              goToInstance(instance)
             }
 
             return (

@@ -7,7 +7,6 @@ export function BrowseTab(props) {
     builds,
     build,
     setBuild,
-    setInstance,
     typeFolders,
     setTypeFolders,
     typeName,
@@ -15,7 +14,8 @@ export function BrowseTab(props) {
     instances,
     setInstances,
     filters,
-    setFilters
+    setFilters,
+    goToInstance
   } = props;
   const addFilter = newFilter => {
     setFilters([...filters, newFilter]);
@@ -67,6 +67,6 @@ export function BrowseTab(props) {
   }), /*#__PURE__*/React.createElement(InstanceList, {
     instances: filteredInstances,
     typeName: typeName,
-    setInstance: setInstance
+    goToInstance: goToInstance
   })));
 }
