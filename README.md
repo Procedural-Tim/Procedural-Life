@@ -34,24 +34,39 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 
 ### The plan
 
-- Typescript
-- data tags
-- weighted data
 - Templates
+- Design
 - Expose root manifest
-- Expose datastores
 - organizations
 - racial names
 - racial family names
-- Friends
-- Close Friends
-- Enemies
+- guilds
+- profession cleanup/skill alignment
+- stat cleanup, make it closer to source
+- Associates
+  - Love
+  - Like
+  - Indifferent
+  - Dislike
+  - Hate
+- Beta testers
 - Spellcheck
-- Consider lincse change to MIT
+- Change to MIT
 - Look into publishing on steam
 - Release!
 
 ## Version 2
+
+- data tags
+- weighted data
+- Expose datastores
+- Expose schema and datastore only properties
+
+## Version 3
+
+- Expose more complex schema props
+
+## Version 4
 
 - Engine type support
 - Crude story engine
@@ -71,6 +86,8 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 
 ## Technical TODO
 
+- Typescript
+- React linter, catch things like useEffect dependencies
 - Instance is getting overly complicated and needs a cleanup
 - Debugger
 - Move most to dynamic imports instead of the complexity of node to fe

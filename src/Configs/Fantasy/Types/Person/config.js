@@ -151,27 +151,27 @@ const person = {
   race: {
     method: getRace,
   },
-  adjustedStr: {
+  adjStr: {
     method: adjStr,
     dependencies: ["str", "age", "race"],
   },
-  adjustedDex: {
+  adjDex: {
     method: adjDex,
     dependencies: ["dex", "age", "race"],
   },
-  adjustedCon: {
+  adjCon: {
     method: adjCon,
     dependencies: ["con", "age", "race"],
   },
-  adjustedCha: {
+  adjCha: {
     method: adjCha,
     dependencies: ["cha", "age", "race"],
   },
-  adjustedWis: {
+  adjWis: {
     method: adjWis,
     dependencies: ["wis", "age", "race"],
   },
-  adjustedInt: {
+  adjInt: {
     method: adjInt,
     dependencies: ["int", "age", "race"],
   },
