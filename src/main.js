@@ -51,18 +51,6 @@ const createWindow = () => {
           .catch(console.warn)
       : Promise.reject(new Error("File does not exist"))
   })
-
-  ipcMain.handle("typeMeta:template", async (evt, buildName, type) => {
-    const filePath = path.join(
-      process.cwd(),
-      `/Generated/${buildName}/${type}/template.js`
-    )
-
-    const { TestIt } = require(filePath)
-    console.log(TestIt)
-    console.log(JSON.stringify({ TestIt }))
-    return JSON.stringify({ TestIt })
-  })
 }
 
 app.whenReady().then(() => {

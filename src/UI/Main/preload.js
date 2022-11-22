@@ -17,9 +17,3 @@ contextBridge.exposeInMainWorld("view", {
     return ipcRenderer.invoke("view:instances", buildName, type)
   },
 })
-
-contextBridge.exposeInMainWorld("typeMeta", {
-  template: function getTemplate(buildName, type) {
-    return ipcRenderer.invoke("typeMeta:template", buildName, type)
-  },
-})
