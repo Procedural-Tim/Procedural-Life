@@ -3,26 +3,219 @@ const {
   getRandomValueWithArray,
   getWeightedRandomValue,
 } = require("../../../Static/functions")
-const { maleNames, femaleNames, lastNames } = require("../Data/names")
+const {
+  maleHumanNames,
+  femaleHumanNames,
+  lastNames,
+  childDragonBornNames,
+  maleDragonBornNames,
+  femaleDragonBornNames,
+  dwarfMaleNames,
+  dwarfFemaleNames,
+  elfChildNames,
+  elfMaleNames,
+  elfFemaleNames,
+  maleTieflingNames,
+  femaleTieflingNames,
+  maleKoboldNames,
+  femaleKoboldNames,
+  gnomeMaleNames,
+  gnomeFemaleNames,
+  femaleOrkNames,
+  maleOrkNames,
+  halflingMaleNames,
+  halflingFemaleNames,
+} = require("../Data/names")
 const { professions } = require("../Data/professions")
-const { races } = require("../Data/races")
+const { races, raceKeys } = require("../Data/races")
 const { traits, adultTraits } = require("../Data/traits")
 
-const Male = "M"
-const Female = "F"
-const sex = [Male, Female]
-
-function getSex() {
-  return getRandomValue(sex)
-}
-
+// Needs cleanup so were not using literals that could be typos
 function getFirstName(dependencies) {
-  const [sex] = dependencies
-  if (sex === Male) {
-    return getRandomValue(maleNames)
-  }
+  const [gender, race, age] = dependencies
 
-  return getRandomValue(femaleNames)
+  switch (race) {
+    case raceKeys.DRAGON_BORN:
+      if (age < 16) {
+        return getWeightedRandomValue(childDragonBornNames)
+      }
+
+      if (gender === "male") {
+        return getWeightedRandomValue(maleDragonBornNames)
+      }
+
+      if (gender === "female") {
+        return getWeightedRandomValue(femaleDragonBornNames)
+      }
+
+      if (gender === "other") {
+        // This patern gives us a 50/50 split instead of the number of names causing a distortion
+        return getWeightedRandomValue(
+          getRandomValue([maleDragonBornNames, femaleDragonBornNames])
+        )
+      }
+      return
+    case raceKeys.DWARF:
+      if (gender === "male") {
+        return getWeightedRandomValue(dwarfMaleNames)
+      }
+
+      if (gender === "female") {
+        return getWeightedRandomValue(dwarfFemaleNames)
+      }
+
+      if (gender === "other") {
+        return getWeightedRandomValue(
+          getRandomValue([dwarfFemaleNames, dwarfMaleNames])
+        )
+      }
+      return
+    case raceKeys.ELF:
+      if (age < 100) {
+        return getWeightedRandomValue(elfChildNames)
+      }
+
+      if (gender === "male") {
+        return getWeightedRandomValue(elfMaleNames)
+      }
+
+      if (gender === "female") {
+        return getWeightedRandomValue(elfFemaleNames)
+      }
+
+      if (gender === "other") {
+        return getWeightedRandomValue(
+          getRandomValue([elfMaleNames, elfFemaleNames])
+        )
+      }
+      return
+    case raceKeys.GNOME:
+      if (gender === "male") {
+        return getWeightedRandomValue(gnomeMaleNames)
+      }
+
+      if (gender === "female") {
+        return getWeightedRandomValue(gnomeFemaleNames)
+      }
+
+      if (gender === "other") {
+        return getWeightedRandomValue(
+          getRandomValue([gnomeMaleNames, gnomeFemaleNames])
+        )
+      }
+      return
+    case raceKeys.HALFLING:
+      if (gender === "male") {
+        return getWeightedRandomValue(halflingMaleNames)
+      }
+
+      if (gender === "female") {
+        return getWeightedRandomValue(halflingFemaleNames)
+      }
+
+      if (gender === "other") {
+        return getWeightedRandomValue(
+          getRandomValue([halflingFemaleNames, halflingMaleNames])
+        )
+      }
+      return
+    case raceKeys.HALF_ELF:
+      if (gender === "male") {
+        return getWeightedRandomValue(
+          getRandomValue([elfMaleNames, maleHumanNames])
+        )
+      }
+
+      if (gender === "female") {
+        return getWeightedRandomValue(
+          getRandomValue([elfFemaleNames, femaleHumanNames])
+        )
+      }
+
+      if (gender === "other") {
+        return getWeightedRandomValue(
+          getRandomValue([
+            elfMaleNames,
+            maleHumanNames,
+            elfFemaleNames,
+            femaleHumanNames,
+          ])
+        )
+      }
+      return
+    case raceKeys.HALF_ORK:
+      if (gender === "male") {
+        return getWeightedRandomValue(
+          getRandomValue([maleHumanNames, maleOrkNames])
+        )
+      }
+
+      if (gender === "female") {
+        return getWeightedRandomValue(
+          getRandomValue([femaleHumanNames, femaleOrkNames])
+        )
+      }
+
+      if (gender === "other") {
+        return getWeightedRandomValue(
+          getRandomValue([
+            maleHumanNames,
+            femaleHumanNames,
+            maleOrkNames,
+            femaleOrkNames,
+          ])
+        )
+      }
+      return
+    case raceKeys.HUMAN:
+      if (gender === "male") {
+        return getWeightedRandomValue(maleHumanNames)
+      }
+
+      if (gender === "female") {
+        return getWeightedRandomValue(femaleHumanNames)
+      }
+
+      if (gender === "other") {
+        return getWeightedRandomValue(
+          getRandomValue([maleHumanNames, femaleHumanNames])
+        )
+      }
+      return
+    case raceKeys.KOBOLD:
+      if (gender === "male") {
+        return getWeightedRandomValue(maleKoboldNames)
+      }
+
+      if (gender === "female") {
+        return getWeightedRandomValue(femaleKoboldNames)
+      }
+
+      if (gender === "other") {
+        return getWeightedRandomValue(
+          getRandomValue([maleKoboldNames, femaleKoboldNames])
+        )
+      }
+      return
+    case raceKeys.TIEFLING:
+      if (gender === "male") {
+        return getWeightedRandomValue(maleTieflingNames)
+      }
+
+      if (gender === "female") {
+        return getWeightedRandomValue(femaleTieflingNames)
+      }
+
+      if (gender === "other") {
+        return getWeightedRandomValue(
+          getRandomValue([maleTieflingNames, femaleTieflingNames])
+        )
+      }
+      return
+    default:
+      console.warn("Invalid race: ", race)
+      return getWeightedRandomValue(maleHumanNames)
+  }
 }
 
 // TODO: Allow a unique fetch
@@ -104,32 +297,32 @@ function getRace() {
 
 function adjStr(dep) {
   const [stat, , race] = dep
-  return stat + (race === races["Half-Ork"].label ? 2 : 0)
+  return stat + (race === raceKeys.HALF_ORK ? 2 : 0)
 }
 
 function adjDex(dep) {
   const [stat, , race] = dep
-  return stat + (race === races.Elf.label ? 2 : 0)
+  return stat + (race === raceKeys.ELF ? 2 : 0)
 }
 
 function adjCon(dep) {
   const [stat, , race] = dep
-  return stat + (race === races.Dwarf.label ? 2 : 0)
+  return stat + (race === raceKeys.DWARF ? 2 : 0)
 }
 
 function adjCha(dep) {
   const [stat, , race] = dep
-  return stat + (race === races.Halfling.label ? 2 : 0)
+  return stat + (race === raceKeys.HALFLING ? 2 : 0)
 }
 
 function adjWis(dep) {
   const [stat, , race] = dep
-  return stat + (race === races.Kobold.label ? 2 : 0)
+  return stat + (race === raceKeys.KOBOLD ? 2 : 0)
 }
 
 function adjInt(dep) {
   const [stat, , race] = dep
-  return stat + (race === races.Gnome.label ? 2 : 0)
+  return stat + (race === raceKeys.GNOME ? 2 : 0)
 }
 
 function getTraits(dep) {
@@ -157,7 +350,6 @@ function getTraits(dep) {
 }
 
 module.exports = {
-  getSex,
   getFirstName,
   getAge,
   getProfession,

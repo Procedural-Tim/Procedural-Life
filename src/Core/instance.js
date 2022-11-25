@@ -1,5 +1,5 @@
 const { getRandomValue } = require("../Static/functions.js")
-const { propTypes } = require("../Static/constants.js")
+const { propTypes, paramTypes } = require("../Static/constants.js")
 const { getNewId } = require("./ids")
 const {
   getTypeInstances,
@@ -138,7 +138,22 @@ function procInstance(
           configPath
         )
       } else {
-        instance[prop] = specification[prop].method(dependencyValues)
+        // While we check for specific types it only really matters for dependencies, the other types are to be
+        // explicit so we know intent
+        if (specification[prop].params) {
+          const paramValues = specification[prop].params.map((param) => {
+            if (param.type === paramTypes.DEP) {
+              return dependencyValues
+            }
+
+            return param.value
+          })
+
+          instance[prop] = specification[prop].method(...paramValues)
+        } else {
+          // Handles the legacy case of defaulting to dependencies as the first parameter every time
+          instance[prop] = specification[prop].method(dependencyValues)
+        }
       }
 
       // Mutates

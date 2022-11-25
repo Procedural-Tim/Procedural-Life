@@ -1,11 +1,12 @@
-const { propTypes } = require("../../../../Static/constants.js")
+const { propTypes, paramTypes } = require("../../../../Static/constants.js")
 const { getWeightedRandomValue } = require("../../../../Static/functions")
+const { sexes } = require("../../Data/sexes.js")
+const { races } = require("../../Data/races.js")
+
 const {
-  getSex,
   getFirstName,
   getAge,
   getProfession,
-  getRace,
   adjStr,
   adjDex,
   adjCon,
@@ -20,15 +21,16 @@ const { roll3D6 } = require("../../Functions/dice")
 
 // Our first type, it is meant to represent an npc
 const person = {
-  // The most basic of attributes, it takes only a method.
+  // It has no dependencies but we do need to give it a parameter to generate from, in this case its the sex data set.
   sex: {
-    method: getSex,
+    method: getWeightedRandomValue,
+    params: [{ type: paramTypes.DATA, value: sexes }],
   },
   firstName: {
     method: getFirstName,
-    // Can not be excuted till this property has been Generated
-    // Dependencies are passed as the first parameter to functions
-    dependencies: ["sex"],
+    // Can not be executed till these properties have been Generated
+    // Depreciated: In the absence of a param prop, dependencies are passed as the first parameter to functions
+    dependencies: ["gender", "race", "age"],
   },
   family: {
     // A special prop that defines a relationship between the instance and the instance of another type.
@@ -59,15 +61,15 @@ const person = {
         },
         {
           weight: 1,
-          value: "Male",
+          value: "male",
         },
         {
           weight: 1,
-          value: "Female",
+          value: "female",
         },
         {
           weight: 4,
-          value: "Other",
+          value: "other",
         },
       ])
     },
@@ -149,7 +151,8 @@ const person = {
     method: roll3D6,
   },
   race: {
-    method: getRace,
+    method: getWeightedRandomValue,
+    params: [{ type: paramTypes.DATA, value: races }],
   },
   adjStr: {
     method: adjStr,

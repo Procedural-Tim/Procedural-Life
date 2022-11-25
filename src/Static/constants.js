@@ -4,4 +4,10 @@ const propTypes = {
   PROVIDED: "provided",
 }
 
-module.exports = { propTypes }
+const paramTypes = {
+  DEP: "dependencies",
+  DATA: "dataSource",
+  LITERAL: "literal",
+}
+
+module.exports = { propTypes, paramTypes }
