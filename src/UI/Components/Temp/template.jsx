@@ -30,7 +30,8 @@ export function Base(props) {
     firstName,
     gender,
     race,
-    alignment,
+    goodOrEvil,
+    lawOrChaos,
     profession,
     family,
     adjStr,
@@ -51,7 +52,7 @@ export function Base(props) {
     fetchData()
   }, [])
 
-  console.log("fi", familyInstance)
+  const alignment = <div><div>{lawOrChaos}</div><div>{goodOrEvil}</div></div>
 
   return (
     <div>

@@ -1,7 +1,8 @@
 const { propTypes, paramTypes } = require("../../../../Static/constants.js")
-const { getWeightedRandomValue } = require("../../../../Static/functions")
+const { getWeightedRandomValue, getRandomInt } = require("../../../../Static/functions")
 const { sexes } = require("../../Data/sexes.js")
 const { races } = require("../../Data/races.js")
+const { goodOrEvil, lawOrChaos } = require ("../../Data/alignments")
 
 const {
   getFirstName,
@@ -14,6 +15,7 @@ const {
   adjWis,
   adjInt,
   getTraits,
+  getGender,
 } = require("../../Functions/functions")
 const { personToFamilyFilter } = require("../../Relationships/personFamily")
 
@@ -49,76 +51,20 @@ const person = {
   //   dependencies: [["family", "status"]],
   // },
   gender: {
-    // TODO: Move to it's own function
-    method: (dependencies) => {
-      const [sex] = dependencies
-
-      // TODO: Get some real numbers so I'm not taking a wild guess at these ratios.
-      return getWeightedRandomValue([
-        {
-          weight: 94,
-          value: sex,
-        },
-        {
-          weight: 1,
-          value: "male",
-        },
-        {
-          weight: 1,
-          value: "female",
-        },
-        {
-          weight: 4,
-          value: "other",
-        },
-      ])
-    },
+    method: getGender,
     dependencies: ["sex"],
   },
-  // TODO: Move the function out
-  alignment: {
-    method: () =>
-      getWeightedRandomValue([
-        {
-          weight: 1,
-          value: "chaotic evil",
-        },
-        {
-          weight: 2,
-          value: "neutral evil",
-        },
-        {
-          weight: 1,
-          value: "lawful evil",
-        },
-        {
-          weight: 2,
-          value: "chaotic neutral",
-        },
-        {
-          weight: 4,
-          value: "neutral",
-        },
-        {
-          weight: 2,
-          value: "lawful neutral",
-        },
-        {
-          weight: 1,
-          value: "chaotic good",
-        },
-        {
-          weight: 2,
-          value: "neutral good",
-        },
-        {
-          weight: 1,
-          value: "lawful good",
-        },
-      ]),
+  goodOrEvil: {
+    method: getWeightedRandomValue,
+    params: [{ type: paramTypes.DATA, value: goodOrEvil}]
+  },
+  lawOrChaos: {
+    method: getWeightedRandomValue,
+    params: [{ type: paramTypes.DATA, value: lawOrChaos}]
   },
   age: {
     method: getAge,
+    dependencies: ["race"],
   },
   profession: {
     method: getProfession,

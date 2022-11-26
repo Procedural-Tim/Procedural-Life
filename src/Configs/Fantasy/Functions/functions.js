@@ -1,5 +1,6 @@
 const {
   getRandomValue,
+  getRandomInt,
   getRandomValueWithArray,
   getWeightedRandomValue,
 } = require("../../../Static/functions")
@@ -223,40 +224,71 @@ function getLastName() {
   return getRandomValue(lastNames)
 }
 
-function getAge() {
-  const ages = new Array()
-  // Crude way of favoring earlier ages
-  for (let i = 0; i < 100; i++) {
-    if (i < 20) {
-      ages.push({
-        value: i,
-        weight: 5,
-      })
-    } else if (i < 40) {
-      ages.push({
-        value: i,
-        weight: 4,
-      })
-    } else if (i < 60) {
-      ages.push({
-        value: i,
-        weight: 3,
-      })
-    } else if (i < 80) {
-      ages.push({
-        value: i,
-        weight: 2,
-      })
-    } else {
-      ages.push({
-        value: i,
-        weight: 1,
-      })
-    }
+function getAge(dependencies) {
+  const [race] = dependencies
+  
+  const getNormalizedAge = (max) => {
+    return getWeightedRandomValue([{
+      value: getRandomInt(max - Math.ceil(max*.95), max),
+      weight: 1
+    },
+    {
+      value: getRandomInt(max - Math.floor(max*.90), Math.floor(max*.95)),
+      weight: 2
+    },
+    {
+      value: getRandomInt(max - Math.floor(max*.85), Math.floor(max*.90)),
+      weight: 4
+    },
+    {
+      value: getRandomInt(max - Math.floor(max*.80), Math.floor(max*.85)),
+      weight: 8
+    },
+    {
+      value: getRandomInt(max - Math.floor(max*.80), Math.floor(max*.85)),
+      weight: 12
+    },
+    {
+      value: getRandomInt(max - Math.floor(max*.75), Math.floor(max*.80)),
+      weight: 16
+    },
+    {
+      value: getRandomInt(max - Math.floor(max*.70), Math.floor(max*.75)),
+      weight: 24
+    },
+    {
+      value: getRandomInt(0, Math.floor(max*.70)),
+      weight: 433
+    },
+  ])
   }
 
-  return getWeightedRandomValue(ages)
-}
+  switch (race) {
+    case raceKeys.DRAGON_BORN:
+      return getNormalizedAge(90)
+    case raceKeys.DWARF:
+      return getNormalizedAge(500)
+    case raceKeys.ELF:
+      return getNormalizedAge(800)
+    case raceKeys.GNOME:
+      return getNormalizedAge(500)
+    case raceKeys.HALFLING:
+      return getNormalizedAge(200)
+    case raceKeys.HALF_ELF:
+      return getNormalizedAge(260)
+    case raceKeys.HALF_ORK:
+      return getNormalizedAge(80)
+    case raceKeys.HUMAN:
+      return getNormalizedAge(100)
+    case raceKeys.KOBOLD:
+      return getNormalizedAge(120)
+    case raceKeys.TIEFLING:
+      return getNormalizedAge(120)
+    default:
+      console.warn("Invalid race: ", race)
+      return getNormalizedAge(100)  
+    }  
+  }
 
 function getProfession(deps) {
   const [age] = deps
@@ -349,6 +381,30 @@ function getTraits(dep) {
   return generatedTraits
 }
 
+function getGender(dependencies) {
+  const [sex] = dependencies
+
+  // TODO: Get some real numbers so I'm not taking a wild guess at these ratios.
+  return getWeightedRandomValue([
+    {
+      weight: 94,
+      value: sex,
+    },
+    {
+      weight: 1,
+      value: "male",
+    },
+    {
+      weight: 1,
+      value: "female",
+    },
+    {
+      weight: 4,
+      value: "other",
+    },
+  ])
+}
+
 module.exports = {
   getFirstName,
   getAge,
@@ -362,4 +418,5 @@ module.exports = {
   adjInt,
   getTraits,
   getLastName,
+  getGender,
 }
