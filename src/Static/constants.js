@@ -1,6 +1,7 @@
 const propTypes = {
   // default not included
-  EXTERNAL: "external",
+  EXTERNAL: "external", // TODO: Need a better name
+  BIDIRECTIONAL: "bi",
   PROVIDED: "provided",
 }
 

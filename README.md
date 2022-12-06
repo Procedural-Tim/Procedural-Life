@@ -34,14 +34,16 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 
 ### The plan
 
-- Templates
+- Children
+- CRUD
+- Favorites
+- Notes
 - Design
 - Expose root manifest
 - organizations
-- racial names
 - racial family names
-- guilds
 - profession cleanup/skill alignment
+  - guilds
 - stat cleanup, make it closer to source
 - Associates
   - Love
@@ -49,6 +51,7 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
   - Indifferent
   - Dislike
   - Hate
+- Templates
 - Beta testers
 - Spellcheck
 - Change to MIT
@@ -86,6 +89,7 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 
 ## Technical TODO
 
+- fix case sensative names for those operating systems that are case insensative
 - Typescript
 - React linter, catch things like useEffect dependencies
 - Instance is getting overly complicated and needs a cleanup

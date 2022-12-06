@@ -1,8 +1,10 @@
 const { propTypes, paramTypes } = require("../../../../Static/constants.js")
 const { getWeightedRandomValue, getRandomInt } = require("../../../../Static/functions")
 const { sexes } = require("../../Data/sexes.js")
+const { sexualOrientations } = require("../../Data/sexualOrientations.js")
 const { races } = require("../../Data/races.js")
 const { goodOrEvil, lawOrChaos } = require ("../../Data/alignments")
+const { mapRelationship, filterRelationship } = require("../../Relationships/index")
 
 const {
   getFirstName,
@@ -16,8 +18,8 @@ const {
   adjInt,
   getTraits,
   getGender,
+  getRelationshipStatus,
 } = require("../../Functions/functions")
-const { personToFamilyFilter } = require("../../Relationships/personFamily")
 
 const { roll3D6 } = require("../../Functions/dice")
 
@@ -34,25 +36,13 @@ const person = {
     // Depreciated: In the absence of a param prop, dependencies are passed as the first parameter to functions
     dependencies: ["gender", "race", "age"],
   },
-  family: {
-    // A special prop that defines a relationship between the instance and the instance of another type.
-    // Currently only supports n -> 1, ie a person can belong to one family but said family may have multiple memembers
-    // There is no method, instead the ids of each instance are assigned to the opposing instances prop
-    type: propTypes.EXTERNAL,
-    dependencies: ["age", "race"],
-    externalType: "Family", // NOTE: CASE MATTERS, The type of the instance to link
-    externalProp: "members", // The property to assign the persons id into
-    filter: personToFamilyFilter,
-  },
-  // status: {
-  //   method: ([familyStatus]) => {"TODO: " + familyStatus},
-  //   // A special case, meant to be used when referncing an external dependencies props
-  //   // In this case we are getting the linked family's status
-  //   dependencies: [["family", "status"]],
-  // },
   gender: {
     method: getGender,
     dependencies: ["sex"],
+  },
+  sexualOrientation: {
+    method: getWeightedRandomValue,
+    params: [{ type: paramTypes.DATA, value: sexualOrientations}]
   },
   goodOrEvil: {
     method: getWeightedRandomValue,
@@ -65,6 +55,18 @@ const person = {
   age: {
     method: getAge,
     dependencies: ["race"],
+  },
+  relationshipStatus: {
+    method: getRelationshipStatus,
+    dependencies: ["age"],
+  },
+  partner: {
+    type: propTypes.BIDIRECTIONAL,
+    dependencies: ["gender", "age", "sexualOrientation", "goodOrEvil", "lawOrChaos", "race", "relationshipStatus"],
+    externalType: "Person",
+    externalProp: "partner",
+    method: mapRelationship,
+    filter: filterRelationship,
   },
   profession: {
     method: getProfession,

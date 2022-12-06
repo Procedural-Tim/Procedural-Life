@@ -1,12 +1,22 @@
+const sexValues = {
+  MALE: "male",
+  FEMALE: "female",
+  OTHER: "other",
+}
+
 const sexes = [
   {
-    value: "male",
-    weight: 1,
+    value: sexValues.MALE,
+    weight: 49,
   },
   {
-    value: "female",
-    weight: 1,
+    value: sexValues.FEMALE,
+    weight: 50,
+  },
+  {
+    value: sexValues.other,
+    weight: 1, // More wild guessing at statistics
   },
 ]
 
-module.exports = { sexes }
+module.exports = { sexes, sexValues }

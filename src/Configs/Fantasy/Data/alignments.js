@@ -1,36 +1,56 @@
+const goodOrEvilValues = {
+  G3: "Pure Good",
+  G2: "Good",
+  G1: "Slightly Good",
+  NEUTRAL: "Neutral",
+  E1: "Slightly Evil",
+  E2: "Evil",
+  E3: "Pure Evil",
+}
+
+const lawOrChaosValues = {
+  L3: "Pure Lawful",
+  L2: "Lawful",
+  L1: "Slightly Lawful",
+  NEUTRAL: "Neutral",
+  C1: "Slightly Chaotic",
+  C2: "Chaotic",
+  C3: "Pure Chaotic",
+}
+
 const goodOrEvil = [
     {
-        value: "Pure Good",
+        value: goodOrEvilValues.G3,
         weight: 1,
         tags: [],
       },
       {
-        value: "Good",
+        value: goodOrEvilValues.G2,
         weight: 2,
         tags: [],
       },
       {
-        value: "Slightly Good",
+        value: goodOrEvilValues.G1,
         weight: 4,
         tags: [],
       },
       {
-        value: "Neutral",
+        value: goodOrEvilValues.NEUTRAL,
         weight: 20,
         tags: [],
       },
       {
-        value: "Slightly Evil",
+        value: goodOrEvilValues.E1,
         weight: 4,
         tags: [],
       },
       {
-        value: "Evil",
+        value: goodOrEvilValues.E2,
         weight: 2,
         tags: [],
       },
       {
-        value: "Pure Evil",
+        value: goodOrEvilValues.E3,
         weight: 1,
         tags: [],
       },
@@ -38,40 +58,40 @@ const goodOrEvil = [
 
 const lawOrChaos = [
     {
-        value: "Pure Lawful",
+        value: lawOrChaosValues.L3,
         weight: 1,
         tags: [],
       },
       {
-        value: "Lawful",
+        value: lawOrChaosValues.L2,
         weight: 2,
         tags: [],
       },
       {
-        value: "Slightly Lawful",
+        value: lawOrChaosValues.L1,
         weight: 4,
         tags: [],
       },
       {
-        value: "Neutral",
+        value: lawOrChaosValues.NEUTRAL,
         weight: 20,
         tags: [],
       },
       {
-        value: "Slightly Chaotic",
+        value: lawOrChaosValues.C1,
         weight: 4,
         tags: [],
       },
       {
-        value: "Chaotic",
+        value: lawOrChaosValues.C2,
         weight: 2,
         tags: [],
       },
       {
-        value: "Pure Chaotic",
+        value: lawOrChaosValues.C3,
         weight: 1,
         tags: [],
       },
 ]
 
-module.exports = { goodOrEvil, lawOrChaos }
+module.exports = { goodOrEvil, lawOrChaos, lawOrChaosValues, goodOrEvilValues }

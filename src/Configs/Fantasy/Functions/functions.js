@@ -30,6 +30,8 @@ const {
 const { professions } = require("../Data/professions")
 const { races, raceKeys } = require("../Data/races")
 const { traits, adultTraits } = require("../Data/traits")
+const { genderValues } = require("../Data/gender")
+const { relationshipStatuses, relationshipStatusValues } = require("../Data/relationship-statuses")
 
 // Needs cleanup so were not using literals that could be typos
 function getFirstName(dependencies) {
@@ -381,10 +383,11 @@ function getTraits(dep) {
   return generatedTraits
 }
 
+
 function getGender(dependencies) {
   const [sex] = dependencies
 
-  // TODO: Get some real numbers so I'm not taking a wild guess at these ratios.
+  // TODO: Move to a data type
   return getWeightedRandomValue([
     {
       weight: 94,
@@ -392,17 +395,27 @@ function getGender(dependencies) {
     },
     {
       weight: 1,
-      value: "male",
+      value: genderValues.MALE,
     },
     {
       weight: 1,
-      value: "female",
+      value: genderValues.FEMALE,
     },
     {
       weight: 4,
-      value: "other",
+      value: genderValues.OTHER, // When used in other attributes treated as a M or F to keep the calculations simple
     },
   ])
+}
+
+function getRelationshipStatus(dependencies) {
+  const [age] = dependencies
+
+  if (age < 18) {
+    return relationshipStatusValues.NA
+  }
+
+  return getWeightedRandomValue(relationshipStatuses)
 }
 
 module.exports = {
@@ -419,4 +432,5 @@ module.exports = {
   getTraits,
   getLastName,
   getGender,
+  getRelationshipStatus,
 }
