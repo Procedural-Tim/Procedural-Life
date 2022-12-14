@@ -34,32 +34,38 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 
 ### The plan
 
-- Children
+- Attributes
+  - Family names
+  - profession cleanup/skill alignment
+    - guilds
+  - Associates
+    - Love
+    - Like
+    - Indifferent
+    - Dislike
+    - Hate
+  - stat cleanup, make it closer to source
+  - 4 Blank attributes for customization by user
 - CRUD
-- Favorites
-- Notes
+  - General CRUD
+  - Favorites
+  - Notes
 - Design
+  - Change layout
+  - Change colors
 - Expose root manifest
-- organizations
-- racial family names
-- profession cleanup/skill alignment
-  - guilds
-- stat cleanup, make it closer to source
-- Associates
-  - Love
-  - Like
-  - Indifferent
-  - Dislike
-  - Hate
 - Templates
-- Beta testers
-- Spellcheck
-- Change to MIT
-- Look into publishing on steam
+- Pre Release
+  - Spellcheck
+  - Change to MIT
+  - Look into publishing on steam
 - Release!
+- Post Release
+  - Feedback and small fixes
 
 ## Version 2
 
+- People have children
 - data tags
 - weighted data
 - Expose datastores
@@ -87,8 +93,15 @@ I have only my personal laptop (windows) to test on, and so I have opted not wor
 - API
 - Time
 
+## TODOs
+- Consider letting under 18 have some relationships, but then need to filter on their partners
+
 ## Technical TODO
 
+- dependency met function
+- move data into it's type
+- move methods to their type folders
+- redo good/evil and law/chaos to a numeric value. Constants make it a headache
 - fix case sensative names for those operating systems that are case insensative
 - Typescript
 - React linter, catch things like useEffect dependencies

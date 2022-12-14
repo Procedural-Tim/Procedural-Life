@@ -31,7 +31,10 @@ const { professions } = require("../Data/professions")
 const { races, raceKeys } = require("../Data/races")
 const { traits, adultTraits } = require("../Data/traits")
 const { genderValues } = require("../Data/gender")
-const { relationshipStatuses, relationshipStatusValues } = require("../Data/relationship-statuses")
+const {
+  relationshipStatuses,
+  relationshipStatusValues,
+} = require("../Data/relationship-statuses")
 
 // Needs cleanup so were not using literals that could be typos
 function getFirstName(dependencies) {
@@ -228,41 +231,60 @@ function getLastName() {
 
 function getAge(dependencies) {
   const [race] = dependencies
-  
+
   const getNormalizedAge = (max) => {
-    return getWeightedRandomValue([{
-      value: getRandomInt(max - Math.ceil(max*.95), max),
-      weight: 1
-    },
-    {
-      value: getRandomInt(max - Math.floor(max*.90), Math.floor(max*.95)),
-      weight: 2
-    },
-    {
-      value: getRandomInt(max - Math.floor(max*.85), Math.floor(max*.90)),
-      weight: 4
-    },
-    {
-      value: getRandomInt(max - Math.floor(max*.80), Math.floor(max*.85)),
-      weight: 8
-    },
-    {
-      value: getRandomInt(max - Math.floor(max*.80), Math.floor(max*.85)),
-      weight: 12
-    },
-    {
-      value: getRandomInt(max - Math.floor(max*.75), Math.floor(max*.80)),
-      weight: 16
-    },
-    {
-      value: getRandomInt(max - Math.floor(max*.70), Math.floor(max*.75)),
-      weight: 24
-    },
-    {
-      value: getRandomInt(0, Math.floor(max*.70)),
-      weight: 433
-    },
-  ])
+    return getWeightedRandomValue([
+      {
+        value: getRandomInt(max - Math.ceil(max * 0.95), max),
+        weight: 1,
+      },
+      {
+        value: getRandomInt(
+          max - Math.floor(max * 0.9),
+          Math.floor(max * 0.95)
+        ),
+        weight: 2,
+      },
+      {
+        value: getRandomInt(
+          max - Math.floor(max * 0.85),
+          Math.floor(max * 0.9)
+        ),
+        weight: 4,
+      },
+      {
+        value: getRandomInt(
+          max - Math.floor(max * 0.8),
+          Math.floor(max * 0.85)
+        ),
+        weight: 8,
+      },
+      {
+        value: getRandomInt(
+          max - Math.floor(max * 0.8),
+          Math.floor(max * 0.85)
+        ),
+        weight: 12,
+      },
+      {
+        value: getRandomInt(
+          max - Math.floor(max * 0.75),
+          Math.floor(max * 0.8)
+        ),
+        weight: 16,
+      },
+      {
+        value: getRandomInt(
+          max - Math.floor(max * 0.7),
+          Math.floor(max * 0.75)
+        ),
+        weight: 24,
+      },
+      {
+        value: getRandomInt(0, Math.floor(max * 0.7)),
+        weight: 433,
+      },
+    ])
   }
 
   switch (race) {
@@ -288,9 +310,9 @@ function getAge(dependencies) {
       return getNormalizedAge(120)
     default:
       console.warn("Invalid race: ", race)
-      return getNormalizedAge(100)  
-    }  
+      return getNormalizedAge(100)
   }
+}
 
 function getProfession(deps) {
   const [age] = deps
@@ -382,7 +404,6 @@ function getTraits(dep) {
 
   return generatedTraits
 }
-
 
 function getGender(dependencies) {
   const [sex] = dependencies

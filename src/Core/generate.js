@@ -14,9 +14,7 @@ const { types } = configManifest
 const useDateForWrite = true
 
 function getSpecification(type) {
-  return Object.values(
-    require(`${configPath}/Types/${type}/config.js`)
-  )[0]
+  return Object.values(require(`${configPath}/Types/${type}/config.js`))[0]
 }
 
 function processTypes(typesAndData) {
@@ -27,31 +25,36 @@ function processTypes(typesAndData) {
   })
 
   const partialTypesAndData = Object.entries(getAll()).reduce((acc, entry) => {
-    const [ type, data ] = entry
+    const [type, data] = entry
     const specification = getSpecification(type)
 
-    const reducedData = data.filter(instance => {
+    const reducedData = data.filter((instance) => {
       const setProps = Object.keys(instance)
-      // Only include data with specification props that are not set, 
+      // Only include data with specification props that are not set,
       // we can't use length do to private props like _id throwing the count off.
-      return Object.keys(specification).filter(
+      const missingKeys = Object.keys(specification).filter(
         (specProp) => !setProps.includes(specProp)
-      ).length
+      )
+
+      // console.log("missingKeys", missingKeys)
+
+      return missingKeys.length
     })
 
     if (reducedData.length) {
+      // console.log("RD", reducedData)
       acc.push([type, reducedData])
     }
 
     return acc
-  },[])
+  }, [])
 
+  // console.log("ptd", partialTypesAndData[1][0])
 
   if (partialTypesAndData.length) {
     processTypes(partialTypesAndData)
   }
 }
-  
 
 function processType(type, data) {
   console.log(`Processing ${type}`)

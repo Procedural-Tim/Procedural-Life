@@ -1,10 +1,19 @@
 const { propTypes, paramTypes } = require("../../../../Static/constants.js")
-const { getWeightedRandomValue, getRandomInt } = require("../../../../Static/functions")
+const {
+  getWeightedRandomValue,
+} = require("../../../../Static/functions")
 const { sexes } = require("../../Data/sexes.js")
 const { sexualOrientations } = require("../../Data/sexualOrientations.js")
 const { races } = require("../../Data/races.js")
-const { goodOrEvil, lawOrChaos } = require ("../../Data/alignments")
-const { mapRelationship, filterRelationship } = require("../../Relationships/index")
+const { goodOrEvil, lawOrChaos } = require("../../Data/alignments")
+const {
+  mapRelationship: partnerMap,
+  filterRelationship: partnerFilter,
+} = require("../../Relationships/person-partner")
+const {
+  mapRelationship: associationMap,
+  filterRelationship: associationFilter,
+} = require("../../Relationships/person-association")
 
 const {
   getFirstName,
@@ -42,15 +51,15 @@ const person = {
   },
   sexualOrientation: {
     method: getWeightedRandomValue,
-    params: [{ type: paramTypes.DATA, value: sexualOrientations}]
+    params: [{ type: paramTypes.DATA, value: sexualOrientations }],
   },
   goodOrEvil: {
     method: getWeightedRandomValue,
-    params: [{ type: paramTypes.DATA, value: goodOrEvil}]
+    params: [{ type: paramTypes.DATA, value: goodOrEvil }],
   },
   lawOrChaos: {
     method: getWeightedRandomValue,
-    params: [{ type: paramTypes.DATA, value: lawOrChaos}]
+    params: [{ type: paramTypes.DATA, value: lawOrChaos }],
   },
   age: {
     method: getAge,
@@ -62,11 +71,30 @@ const person = {
   },
   partner: {
     type: propTypes.BIDIRECTIONAL,
-    dependencies: ["gender", "age", "sexualOrientation", "goodOrEvil", "lawOrChaos", "race", "relationshipStatus"],
+    dependencies: [
+      "gender",
+      "age",
+      "sexualOrientation",
+      "goodOrEvil",
+      "lawOrChaos",
+      "race",
+      "relationshipStatus",
+    ],
     externalType: "Person",
     externalProp: "partner",
-    method: mapRelationship,
-    filter: filterRelationship,
+    method: partnerMap,
+    filter: partnerFilter,
+  },
+  associationMembership: {
+    type: propTypes.EXTERNAL,
+    dependencies: [
+      "goodOrEvil",
+      "lawOrChaos",
+    ],
+    externalType: "Association",
+    externalProp: "members",
+    method: associationMap,
+    filter: associationFilter,
   },
   profession: {
     method: getProfession,

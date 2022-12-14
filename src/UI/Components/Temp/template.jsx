@@ -52,7 +52,12 @@ export function Base(props) {
     fetchData()
   }, [])
 
-  const alignment = <div><div>{lawOrChaos}</div><div>{goodOrEvil}</div></div>
+  const alignment = (
+    <div>
+      <div>{lawOrChaos}</div>
+      <div>{goodOrEvil}</div>
+    </div>
+  )
 
   return (
     <div>
