@@ -77,6 +77,12 @@ const subLevels = {
         "nature",
         "nobility",
         "religion",
+      ],
+      [topLevelValues.SPIRITUAL]: [
+        "gods",
+        "nature",
+        "non deity spirituality",
+        "extra planar concept"
       ]
 }
 
